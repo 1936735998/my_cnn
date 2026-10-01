@@ -1,0 +1,18 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>MNIST CNN 训练结果</title>
+    <style>body{max-width:1100px;margin:36px auto;padding:0 24px;font:16px/1.7 sans-serif;color:#162033}
+    img{max-width:100%;height:auto;border:1px solid #dde3ee;border-radius:10px}h2{margin-top:36px}</style>
+    <h1>MNIST CNN 训练与卷积层特征</h1>
+    <p>独立测试集：98.99%，正确 9899 / 10000。
+    训练 54000 张，验证 6000 张，训练 5 轮。</p>
+    <p>实际参数设备：cuda:0；
+    物理训练设备：NVIDIA GeForce RTX 5060。</p>
+    <p><a href="predictions.csv">全部 10000 张分类结果</a> · <a href="summary.json">训练记录</a> ·
+    <a href="mnist_cnn.keras">训练后的模型</a> · <a href="feature_maps.npz">原始特征数值</a></p>
+    <h2>前 36 张测试图片的分类结果</h2><img src="predictions.png" alt="分类结果">
+    <h2>各层观察的同一张输入图片</h2><img src="input_digit.png" alt="原始数字" style="max-width:360px">
+    <p>下图是训练后各卷积层经过 ReLU 的激活特征图，不是各层独立作出的分类。
+    所有通道均显示；每张小图单独调整显示亮度以看清结构，不能直接比较不同通道的颜色强弱。
+    黑色表示该位置响应为零。后面的层尺寸更小、通道更多，不保证仍呈现完整数字轮廓。</p>
+    <h2>卷积层 1：全部 16 个通道</h2><img src="conv1_features.png" alt="卷积层 1 特征图"><h2>卷积层 2：全部 32 个通道</h2><img src="conv2_features.png" alt="卷积层 2 特征图"><h2>卷积层 3：全部 64 个通道</h2><img src="conv3_features.png" alt="卷积层 3 特征图"><h2>训练与验证曲线</h2><img src="training_history.png" alt="训练曲线">
+    <h2>前 36 个错误预测</h2><img src="errors.png" alt="错误案例">
+    </html>

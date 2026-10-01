@@ -1,0 +1,10 @@
+{
+  "training_rerun": false,
+  "csv_rows": 10000,
+  "csv_accuracy_matches": true,
+  "train_validation_disjoint": true,
+  "model_reload_predictions_match": true,
+  "all_three_saved_feature_maps_match_reloaded_model": true,
+  "image_files_decode": true,
+  "html_local_links_resolve": true
+}
