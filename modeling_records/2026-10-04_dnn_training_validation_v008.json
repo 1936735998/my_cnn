@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-04",
+  "version": "v008",
+  "stage": "five_epoch_training_on_5000_sample_subset",
+  "training_completed_for_requested_subset": true,
+  "full_60000_sample_training_completed": false,
+  "seed": 42,
+  "learning_rate": 0.01,
+  "epochs": 5,
+  "samples_per_epoch": 5000,
+  "learning_updates": 25000,
+  "shuffle": false,
+  "loss_definition": "mean squared error across 10 classes, computed before each sample update, averaged across samples per epoch",
+  "online_epoch_mean_losses": [
+    0.0717452499336227,
+    0.043550414432283316,
+    0.0321534218824488,
+    0.025845543993940935,
+    0.022735846683943576
+  ],
+  "elapsed_seconds": 2.6754835000028834,
+  "all_final_parameters_finite": true,
+  "python": "3.13.15",
+  "numpy": "2.5.3",
+  "actual_device": "CPU (NumPy arrays)",
+  "cpu_identifier": "AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",
+  "gpu_allocation": "None in this NumPy training; GPU hardware not re-inspected.",
+  "trained_parameters_file": "2026-10-04_dnn_trained_parameters_v008.npz",
+  "user_python_file_modified_by_assistant": false,
+  "execution": "isolated verification snippet via project interpreter; current VS Code file was not executed or edited",
+  "test_accuracy_evaluated": false,
+  "limitations": "Fixed first 5000 training images, fixed sample order, five epochs; online training losses are not frozen end-of-epoch losses or test performance."
+}

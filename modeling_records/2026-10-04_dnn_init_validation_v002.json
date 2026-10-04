@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-04",
+  "version": "v002",
+  "stage": "parameter_initialization_only",
+  "model_trained": false,
+  "seed": 42,
+  "weight_standard_deviation": 0.01,
+  "shapes": {
+    "W1": [
+      784,
+      64
+    ],
+    "b1": [
+      64
+    ],
+    "W2": [
+      64,
+      10
+    ],
+    "b2": [
+      10
+    ]
+  },
+  "parameter_count": 50890,
+  "all_parameters_finite": true,
+  "actual_device": "CPU (NumPy arrays)",
+  "user_python_file_modified_by_assistant": false
+}

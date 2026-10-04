@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-04",
+  "version": "v001",
+  "stage": "data_preparation_only",
+  "model_trained": false,
+  "python": "3.13.15",
+  "numpy": "2.5.3",
+  "original_shapes": [
+    [
+      60000,
+      28,
+      28
+    ],
+    [
+      60000
+    ],
+    [
+      10000,
+      28,
+      28
+    ],
+    [
+      10000
+    ]
+  ],
+  "prepared_shapes": [
+    [
+      5000,
+      784
+    ],
+    [
+      5000
+    ],
+    [
+      1000,
+      784
+    ],
+    [
+      1000
+    ]
+  ],
+  "pixel_range": [
+    0,
+    1
+  ],
+  "first_ten_labels": [
+    5,
+    0,
+    4,
+    1,
+    9,
+    2,
+    1,
+    3,
+    1,
+    4
+  ],
+  "execution": "project Python interpreter via shell; no VS Code model training",
+  "data_backend": "NumPy CPU"
+}

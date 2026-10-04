@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-04",
+  "version": "v003",
+  "stage": "single_sample_forward_only",
+  "model_trained": false,
+  "parameters_updated": false,
+  "seed": 42,
+  "data_source": "C:/Users/19367/.keras/datasets/mnist.npz; first training image normalized by 255",
+  "shapes": {
+    "x": [
+      784
+    ],
+    "z1": [
+      64
+    ],
+    "a1": [
+      64
+    ],
+    "output": [
+      10
+    ]
+  },
+  "output_scores": [
+    -0.0062338848762368525,
+    0.01002674040927969,
+    -0.005608988206567723,
+    -0.0010516856945980962,
+    -0.006836206937105057,
+    -0.0011667067253659188,
+    0.0011557188088901227,
+    0.0011807907424293508,
+    -0.0049535812711216775,
+    0.007245577946181657
+  ],
+  "true_label": 5,
+  "predicted_class": 1,
+  "relu_nonnegative": true,
+  "all_values_finite": true,
+  "actual_device": "CPU (NumPy arrays)",
+  "user_python_file_modified_by_assistant": false
+}

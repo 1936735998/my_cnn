@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-04",
+  "version": "v005",
+  "stage": "output_layer_gradient_validation_only",
+  "model_trained": false,
+  "learning_updates_performed": false,
+  "seed": 42,
+  "true_label": 5,
+  "d_output": [
+    -0.0012467769752473705,
+    0.002005348081855938,
+    -0.0011217976413135445,
+    -0.00021033713891961925,
+    -0.0013672413874210114,
+    -0.2002333413450732,
+    0.00023114376177802454,
+    0.00023615814848587015,
+    -0.0009907162542243356,
+    0.0014491155892363313
+  ],
+  "gradient_shapes": {
+    "d_output": [
+      10
+    ],
+    "d_W2": [
+      64,
+      10
+    ],
+    "d_b2": [
+      10
+    ]
+  },
+  "gradient_check": {
+    "method": "central_finite_difference",
+    "epsilon": 0.000001,
+    "checked_W2_entries": 640,
+    "checked_b2_entries": 10,
+    "max_absolute_error_W2": 2.6093540956423356e-11,
+    "max_absolute_error_b2": 1.1702087866424793e-11,
+    "absolute_error_threshold": 1e-7,
+    "passed": true
+  },
+  "actual_device": "CPU (NumPy arrays)",
+  "user_python_file_modified_by_assistant": false,
+  "limitations": "Only output-layer gradients for the first training sample were checked; hidden-layer gradients and training remain unimplemented."
+}

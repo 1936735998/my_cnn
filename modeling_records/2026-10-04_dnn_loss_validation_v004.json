@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-04",
+  "version": "v004",
+  "stage": "loss_computation_only",
+  "model_trained": false,
+  "parameters_updated": false,
+  "forward_rerun": false,
+  "source_forward_result": "2026-10-04_dnn_forward_validation_v003.json",
+  "true_label": 5,
+  "target": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0
+  ],
+  "target_shape": [
+    10
+  ],
+  "target_sum": 1,
+  "loss_type": "mean_squared_error_over_10_outputs",
+  "loss": 0.10026332383359153,
+  "perfect_output_loss": 0,
+  "actual_device": "CPU (NumPy arrays)",
+  "user_python_file_modified_by_assistant": false
+}
