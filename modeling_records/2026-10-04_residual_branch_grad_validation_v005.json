@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-04",
+  "version": "v005",
+  "task": "fully_connected_residual_network_from_scratch",
+  "stage": "residual_branch_and_total_block_input_gradient_validation",
+  "model_trained": false,
+  "learning_updates_performed": 0,
+  "seed": 42,
+  "gradient_shapes": {
+    "d_W3": [
+      64,
+      64
+    ],
+    "d_b3": [
+      64
+    ],
+    "d_u": [
+      64
+    ],
+    "d_z2": [
+      64
+    ],
+    "d_W2": [
+      64,
+      64
+    ],
+    "d_b2": [
+      64
+    ],
+    "d_h_main": [
+      64
+    ],
+    "d_h_skip": [
+      64
+    ],
+    "d_h": [
+      64
+    ]
+  },
+  "gradient_check": {
+    "method": "central_finite_difference",
+    "epsilon": 0.000001,
+    "minimum_absolute_z2": 0.0001341631247040679,
+    "minimum_absolute_s": 0.000004663945231491913,
+    "absolute_error_threshold": 1e-7,
+    "checks": {
+      "W3": {
+        "checked_entries": 4096,
+        "max_absolute_error": 4.986977172404702e-11
+      },
+      "b3": {
+        "checked_entries": 64,
+        "max_absolute_error": 4.419031850513844e-11
+      },
+      "W2": {
+        "checked_entries": 4096,
+        "max_absolute_error": 4.1458356360141966e-11
+      },
+      "b2": {
+        "checked_entries": 64,
+        "max_absolute_error": 3.0241989820581697e-11
+      },
+      "h_total": {
+        "checked_entries": 64,
+        "max_absolute_error": 3.294099184916945e-11
+      }
+    },
+    "passed": true,
+    "total_h_scope": "Perturb h and recompute both the residual branch F(h) and the identity skip; comparison uses d_h_skip+d_h_main."
+  },
+  "actual_device": "CPU (NumPy arrays)",
+  "user_python_file_modified_by_assistant": false,
+  "limitations": "Input-mapping W1/b1 gradients and parameter updates remain unimplemented; checks concern one sample away from the ReLU kink; no training or evaluation."
+}

@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-04",
+  "version": "v004",
+  "task": "fully_connected_residual_network_from_scratch",
+  "stage": "output_layer_and_addition_node_local_gradient_validation",
+  "model_trained": false,
+  "learning_updates_performed": 0,
+  "seed": 42,
+  "gradient_shapes": {
+    "d_output": [
+      10
+    ],
+    "d_W4": [
+      64,
+      10
+    ],
+    "d_b4": [
+      10
+    ],
+    "d_r": [
+      64
+    ],
+    "d_s": [
+      64
+    ],
+    "d_F_h": [
+      64
+    ],
+    "d_h_skip": [
+      64
+    ]
+  },
+  "gradient_check": {
+    "method": "central_finite_difference",
+    "epsilon": 0.000001,
+    "minimum_absolute_s": 0.000004663945231491913,
+    "absolute_error_threshold": 1e-7,
+    "checks": {
+      "W4": {
+        "checked_entries": 640,
+        "max_absolute_error": 1.795541146321078e-11
+      },
+      "b4": {
+        "checked_entries": 10,
+        "max_absolute_error": 8.220873634612325e-12
+      },
+      "F_h_local_input": {
+        "checked_entries": 64,
+        "max_absolute_error": 4.419031850513844e-11
+      },
+      "h_skip_local_input": {
+        "checked_entries": 64,
+        "max_absolute_error": 4.419031850513844e-11
+      }
+    },
+    "passed": true,
+    "local_gradient_scope": "When checking h_skip, hold F_h fixed; when checking F_h, hold h fixed. These are local node-input derivatives, not the total derivative with respect to shared h."
+  },
+  "actual_device": "CPU (NumPy arrays)",
+  "user_python_file_modified_by_assistant": false,
+  "limitations": "W2/W3 and total h/input-layer gradients remain unimplemented; checks concern one sample away from the ReLU kink; no training or evaluation."
+}

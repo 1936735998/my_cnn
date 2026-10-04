@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-04",
+  "version": "v006",
+  "task": "fully_connected_residual_network_from_scratch",
+  "stage": "input_mapping_gradient_validation",
+  "model_trained": false,
+  "learning_updates_performed": 0,
+  "seed": 42,
+  "gradient_shapes": {
+    "d_z1": [
+      64
+    ],
+    "d_W1": [
+      784,
+      64
+    ],
+    "d_b1": [
+      64
+    ]
+  },
+  "gradient_check": {
+    "method": "central_finite_difference",
+    "epsilon": 0.000001,
+    "checked_W1_entries": 64,
+    "checked_b1_entries": 64,
+    "sampled_pixel_indices": [
+      152,
+      405,
+      683,
+      161,
+      0,
+      27,
+      28,
+      100
+    ],
+    "sampled_input_hidden_indices": [
+      0,
+      1,
+      3,
+      4,
+      2,
+      7,
+      9,
+      10
+    ],
+    "includes_active_and_inactive_input_relu": true,
+    "minimum_absolute_preactivations": {
+      "z1": 0.00007152014630503606,
+      "z2": 0.0001341631247040679,
+      "s": 0.000004663945231491913
+    },
+    "max_absolute_error_W1": 3.211271920171852e-11,
+    "max_absolute_error_b1": 3.1604314000913125e-11,
+    "absolute_error_threshold": 1e-7,
+    "passed": true,
+    "objective": "Recomputes the whole residual forward graph so both paths contribute."
+  },
+  "actual_device": "CPU (NumPy arrays)",
+  "user_python_file_modified_by_assistant": false,
+  "limitations": "Only 64 sampled W1 entries and all 64 b1 entries on the first sample away from ReLU kinks; no learning updates, training or test evaluation."
+}

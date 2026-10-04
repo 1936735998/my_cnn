@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-04",
+  "version": "v002",
+  "task": "fully_connected_residual_network_from_scratch",
+  "stage": "first_training_sample_forward_validation_only",
+  "model_trained": false,
+  "learning_updates_performed": 0,
+  "seed": 42,
+  "true_label": 5,
+  "predicted_class": 0,
+  "shapes": {
+    "x": [
+      784
+    ],
+    "z1": [
+      64
+    ],
+    "h": [
+      64
+    ],
+    "z2": [
+      64
+    ],
+    "u": [
+      64
+    ],
+    "F_h": [
+      64
+    ],
+    "s": [
+      64
+    ],
+    "r": [
+      64
+    ],
+    "output": [
+      10
+    ]
+  },
+  "output_scores": [
+    0.003932279264041789,
+    0.002911092694712396,
+    -0.002082732253195225,
+    -0.003438307747899984,
+    0.0014378449250281326,
+    -0.0020971504240069805,
+    -0.0037385935411367987,
+    0.0035861832771464683,
+    0.0006760942250471573,
+    -0.004579196715729953
+  ],
+  "residual_branch_range": [
+    -0.0007375155966272272,
+    0.0005166090579999419
+  ],
+  "residual_branch_negative_values": 33,
+  "all_intermediate_values_finite": true,
+  "skip_addition_checked": true,
+  "identity_if_residual_zero_checked": true,
+  "h_and_r_nonnegative": true,
+  "actual_device": "CPU (NumPy arrays)",
+  "user_python_file_modified_by_assistant": false,
+  "execution": "isolated snippet using the same local MNIST cache through the project interpreter",
+  "limitations": "Only one sample forward pass and identity-case checks; no loss, gradient, training or test-set evaluation."
+}
