@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-06",
+  "timezone": "Asia/Shanghai",
+  "version": "v002",
+  "recorded_at": "2026-10-06T20:39:20.409787+08:00",
+  "scope": "输入投影初始化与单图线性前向；未进行位置编码、注意力、反向或训练",
+  "python": "3.13.15",
+  "executable": "F:\\PythonProjects\\deep_learning\\.venv\\Scripts\\python.exe",
+  "numpy": "2.5.3",
+  "cupy": "14.2.0",
+  "selected_device": 0,
+  "gpu_name": "NVIDIA GeForce RTX 5060",
+  "cupy_visible_gpu_count": 1,
+  "user_source_path": "F:\\PythonProjects\\deep_learning\\transformer_mnist.py",
+  "user_source_sha256": "0edd9244deb485c31fcf32055f386c99555093e48c60ed312f797bf080d2ce2b",
+  "user_source_unchanged": true,
+  "chat_fragment": "# ==================================================\n# 输入投影参数初始化\n# ==================================================\n\ncp.random.seed(42)\n\ninput_size = 28\nd_model = 32\n\nW_in = cp.random.randn(input_size, d_model).astype(cp.float32) * 0.1\nb_in = cp.zeros(d_model, dtype=cp.float32)\n\nprint(\"W_in:\", W_in.shape)\nprint(\"b_in:\", b_in.shape)\n\n\n# ==================================================\n# 将每行的 28 个像素映射成 32 个特征\n# ==================================================\n\nX = x_train[0]\nembedding = cp.dot(X, W_in) + b_in\n\nprint(\"X:\", X.shape)\nprint(\"embedding:\", embedding.shape)\nprint(\"一行映射后的特征:\", embedding[0].shape)\nprint(\"W_in 的实际设备:\", W_in.device)\nprint(\"embedding 的实际设备:\", embedding.device)\n",
+  "chat_fragment_sha256": "42d46aa6396711c758f545296ffd5d200d57a7d0efcd2df3daabfcdaba5365c3",
+  "inputs": {
+    "train_shape": [
+      5000,
+      28,
+      28
+    ],
+    "test_shape": [
+      1000,
+      28,
+      28
+    ],
+    "selected_image_index": 0,
+    "selected_image_label": 5
+  },
+  "config": {
+    "seed": 42,
+    "input_size": 28,
+    "d_model": 32,
+    "initialization_scale": 0.1
+  },
+  "shapes": {
+    "X": [
+      28,
+      28
+    ],
+    "W_in": [
+      28,
+      32
+    ],
+    "b_in": [
+      32
+    ],
+    "embedding": [
+      28,
+      32
+    ]
+  },
+  "devices": {
+    "X": "<CUDA Device 0>",
+    "W_in": "<CUDA Device 0>",
+    "b_in": "<CUDA Device 0>",
+    "embedding": "<CUDA Device 0>"
+  },
+  "parameter_count": 928,
+  "all_arrays_float32_and_finite": true,
+  "cpu_reference_match": true,
+  "cpu_reference_rtol": 1e-05,
+  "cpu_reference_atol": 1e-06,
+  "cpu_reference_max_abs_error": 1.1920928955078125e-07,
+  "embedding_min": -0.7115698456764221,
+  "embedding_max": 0.49574345350265503,
+  "position_encoding_executed": false,
+  "attention_executed": false,
+  "gradient_computation_executed": false,
+  "parameter_updates": 0,
+  "transformer_training_executed": false,
+  "stdout": "Python: 3.13.15\nNumPy: 2.5.3\nCuPy: 14.2.0\nGPU 数量: 1\nGPU 型号: NVIDIA GeForce RTX 5060\nx_train: (5000, 28, 28)\ny_train: (5000,)\nx_test: (1000, 28, 28)\ny_test: (1000,)\n一张图片: (28, 28)\n一行像素: (28,)\n像素范围: 0.0 1.0\n第一张图片的标签: 5\n训练输入的实际设备: <CUDA Device 0>\n测试输入的实际设备: <CUDA Device 0>\nW_in: (28, 32)\nb_in: (32,)\nX: (28, 28)\nembedding: (28, 32)\n一行映射后的特征: (32,)\nW_in 的实际设备: <CUDA Device 0>\nembedding 的实际设备: <CUDA Device 0>\n"
+}

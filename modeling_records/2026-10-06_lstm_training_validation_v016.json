@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-06",
+  "version": "v016",
+  "stage": "five_epoch_training_loop",
+  "source_path": "F:\\PythonProjects\\deep_learning\\lstm_from_scratch.py",
+  "source_sha256": "ea839616f4409ac3ae14c82a83eb99acca3487006ccca0bce8ddc83a74383beb",
+  "source_unchanged": true,
+  "snapshot_filename": "2026-10-06_lstm_training_code_v016.py",
+  "snapshot_sha256": "84e9309c6d506f63f2f275119f307d93a3dd7278506867f0da5cc3c4fffc7f21",
+  "dataset_cache": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "dataset_sha256": "731c5ac602752760c8e48fbffcf8c3b850d9dc2a2aedcf2cc48468fc17b673d1",
+  "input_preparation": "first5000 training images /255.0, preserve28x28; fixed original order",
+  "training_shape": [
+    5000,
+    28,
+    28
+  ],
+  "label_shape": [
+    5000
+  ],
+  "python": "3.13.15",
+  "numpy": "2.5.3",
+  "actual_device": "CPU",
+  "dtype": "float64",
+  "cpu_identifier": "AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",
+  "gpu_enumeration": "NumPy does not provide this interface; GPU not investigated",
+  "sequence_length": 28,
+  "input_size": 28,
+  "hidden_size": 64,
+  "output_size": 10,
+  "trainable_parameter_count": 24458,
+  "seed": 42,
+  "initial_weight_scale": 0.1,
+  "loss": "mean_squared_error_over_10_linear_outputs",
+  "learning_rate": 0.01,
+  "epochs": 5,
+  "sample_order": "fixed, no shuffle",
+  "batch_size": 1,
+  "setup_replayed_prior_sgd_updates": 2,
+  "additional_optimizer_updates": 25000,
+  "total_optimizer_updates_in_full_script": 25002,
+  "loss_history": [
+    0.08224815983770083,
+    0.0720871487814817,
+    0.06497751885098531,
+    0.05914428599723243,
+    0.054002508614171676
+  ],
+  "loss_interpretation": "epoch mean of sample loss BEFORE its SGD update; changing weights during epoch",
+  "epoch_cumulative_elapsed_seconds": [
+    14.094981900001585,
+    28.811669599999732,
+    43.85868760000085,
+    58.543039000000135,
+    74.06364849999954
+  ],
+  "epoch_checks": [
+    {
+      "epoch": 1,
+      "training_calls_completed": 5000,
+      "all_parameters_finite": true
+    },
+    {
+      "epoch": 2,
+      "training_calls_completed": 10000,
+      "all_parameters_finite": true
+    },
+    {
+      "epoch": 3,
+      "training_calls_completed": 15000,
+      "all_parameters_finite": true
+    },
+    {
+      "epoch": 4,
+      "training_calls_completed": 20000,
+      "all_parameters_finite": true
+    },
+    {
+      "epoch": 5,
+      "training_calls_completed": 25000,
+      "all_parameters_finite": true
+    }
+  ],
+  "training_elapsed_seconds": 74.06373470000108,
+  "all_epoch_losses_finite": true,
+  "all_final_parameters_finite": true,
+  "final_parameter_norms": {
+    "W_f": 7.687130042237082,
+    "b_f": 8.18871902367185,
+    "W_i": 7.731469798326258,
+    "b_i": 0.2203166648256743,
+    "W_g": 8.10656341585581,
+    "b_g": 0.4647280825563125,
+    "W_o": 7.705355961163492,
+    "b_o": 0.255747283872631,
+    "W_y": 2.749052373860703,
+    "b_y": 0.3889179351156344
+  },
+  "checkpoint_filename": "2026-10-06_lstm_parameters_v016.npz",
+  "checkpoint_sha256": "562451e5b4f010523708b15513ffe41cdc3a1c45aab1079e6a79063071c9ff6b",
+  "checkpoint_reload_exact": true,
+  "test_set_evaluation": false,
+  "accuracy_claimed": false,
+  "execution_method": "PowerShell project Python; local npz data loader, saved model prefix + exact new loop",
+  "limitations": [
+    "No test-set assessment yet",
+    "MSE is averaged online with changing parameters",
+    "Teaching fixed-order single-image SGD; no hyperparameter search"
+  ]
+}

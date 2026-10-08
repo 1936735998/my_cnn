@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-05",
+  "version": "v002",
+  "task": "numpy_lstm_mnist_from_scratch",
+  "stage": "parameter_initialization_only",
+  "seed": 42,
+  "input_size": 28,
+  "hidden_size": 64,
+  "output_size": 10,
+  "combined_size": 92,
+  "planned_concatenation_order": [
+    "x_t",
+    "h_prev"
+  ],
+  "initial_weight_standard_deviation": 0.1,
+  "parameter_shapes": {
+    "W_f": [
+      92,
+      64
+    ],
+    "b_f": [
+      64
+    ],
+    "W_i": [
+      92,
+      64
+    ],
+    "b_i": [
+      64
+    ],
+    "W_g": [
+      92,
+      64
+    ],
+    "b_g": [
+      64
+    ],
+    "W_o": [
+      92,
+      64
+    ],
+    "b_o": [
+      64
+    ],
+    "W_y": [
+      64,
+      10
+    ],
+    "b_y": [
+      10
+    ]
+  },
+  "parameter_dtypes": {
+    "W_f": "float64",
+    "b_f": "float64",
+    "W_i": "float64",
+    "b_i": "float64",
+    "W_g": "float64",
+    "b_g": "float64",
+    "W_o": "float64",
+    "b_o": "float64",
+    "W_y": "float64",
+    "b_y": "float64"
+  },
+  "parameter_count": 24458,
+  "h_shape": [
+    64
+  ],
+  "c_shape": [
+    64
+  ],
+  "states_zero": true,
+  "forget_bias_one": true,
+  "other_biases_zero": true,
+  "all_parameters_finite": true,
+  "shape_assertions_passed": true,
+  "sigmoid_of_one_for_bias_explanation": 0.7310585786300049,
+  "model_trained": false,
+  "forward_pass_executed": false,
+  "backward_pass_executed": false,
+  "parameters_updated": false,
+  "python": "3.13.15",
+  "numpy": "2.5.3",
+  "actual_device": "CPU",
+  "cpu_identifier": "AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",
+  "execution": "isolated snippet via project Python interpreter",
+  "user_python_file_modified_by_assistant": false
+}

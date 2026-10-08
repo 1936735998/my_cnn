@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-06",
+  "timezone": "Asia/Shanghai",
+  "version": "v004",
+  "recorded_at": "2026-10-06T21:20:40.048416+08:00",
+  "scope": "Q/K/V参数初始化与单图投影；未拆分多头、计算注意力或训练",
+  "python": "3.13.15",
+  "executable": "F:\\PythonProjects\\deep_learning\\.venv\\Scripts\\python.exe",
+  "numpy": "2.5.3",
+  "cupy": "14.2.0",
+  "selected_device": 0,
+  "gpu_name": "NVIDIA GeForce RTX 5060",
+  "cupy_visible_gpu_count": 1,
+  "user_source_path": "F:\\PythonProjects\\deep_learning\\transformer_mnist.py",
+  "user_source_sha256": "2beb3767e6fe89aff84b52cc1a149c41ec84c222ae3e44a0f617dc0b6ac97681",
+  "user_source_unchanged": true,
+  "data_path": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "data_sha256": "731c5ac602752760c8e48fbffcf8c3b850d9dc2a2aedcf2cc48468fc17b673d1",
+  "chat_fragment": "# ==================================================\n# Q、K、V 的投影参数\n# ==================================================\n\nW_Q = cp.random.randn(d_model, d_model).astype(cp.float32) * 0.1\nW_K = cp.random.randn(d_model, d_model).astype(cp.float32) * 0.1\nW_V = cp.random.randn(d_model, d_model).astype(cp.float32) * 0.1\n\nb_Q = cp.zeros(d_model, dtype=cp.float32)\nb_K = cp.zeros(d_model, dtype=cp.float32)\nb_V = cp.zeros(d_model, dtype=cp.float32)\n\nprint(\"W_Q:\", W_Q.shape)\nprint(\"W_K:\", W_K.shape)\nprint(\"W_V:\", W_V.shape)\n\n\n# ==================================================\n# 同一份输入，生成三种特征表示\n# ==================================================\n\nQ = cp.dot(encoder_input, W_Q) + b_Q\nK = cp.dot(encoder_input, W_K) + b_K\nV = cp.dot(encoder_input, W_V) + b_V\n\nprint(\"Q:\", Q.shape)\nprint(\"K:\", K.shape)\nprint(\"V:\", V.shape)\n\nprint(\"Q 的实际设备:\", Q.device)\nprint(\"K 的实际设备:\", K.device)\nprint(\"V 的实际设备:\", V.device)\n",
+  "chat_fragment_sha256": "a299f9196e1b393b5c3e646c53cef74f141f68a1456e36cb5d7fdd3e65e69f40",
+  "config": {
+    "seq_len": 28,
+    "d_model": 32,
+    "initialization_scale": 0.1,
+    "seed_in_existing_user_code": 42,
+    "seed_reset_in_fragment": false
+  },
+  "input_shape": [
+    28,
+    32
+  ],
+  "input_device": "<CUDA Device 0>",
+  "checks": {
+    "Q": {
+      "W_shape": [
+        32,
+        32
+      ],
+      "b_shape": [
+        32
+      ],
+      "output_shape": [
+        28,
+        32
+      ],
+      "device": "<CUDA Device 0>",
+      "dtype": "float32",
+      "all_finite": true,
+      "zero_bias": true,
+      "cpu_reference_match": true,
+      "cpu_reference_max_abs_error": 2.086162567138672e-07
+    },
+    "K": {
+      "W_shape": [
+        32,
+        32
+      ],
+      "b_shape": [
+        32
+      ],
+      "output_shape": [
+        28,
+        32
+      ],
+      "device": "<CUDA Device 0>",
+      "dtype": "float32",
+      "all_finite": true,
+      "zero_bias": true,
+      "cpu_reference_match": true,
+      "cpu_reference_max_abs_error": 2.384185791015625e-07
+    },
+    "V": {
+      "W_shape": [
+        32,
+        32
+      ],
+      "b_shape": [
+        32
+      ],
+      "output_shape": [
+        28,
+        32
+      ],
+      "device": "<CUDA Device 0>",
+      "dtype": "float32",
+      "all_finite": true,
+      "zero_bias": true,
+      "cpu_reference_match": true,
+      "cpu_reference_max_abs_error": 1.7881393432617188e-07
+    }
+  },
+  "projection_weights_pairwise_different": true,
+  "new_trainable_parameter_count": 3168,
+  "total_initialized_trainable_parameter_count": 4096,
+  "encoder_input_and_old_parameters_unchanged": true,
+  "cpu_reference_rtol": 1e-05,
+  "cpu_reference_atol": 1e-06,
+  "multi_head_split_executed": false,
+  "attention_executed": false,
+  "gradient_computation_executed": false,
+  "parameter_updates": 0,
+  "transformer_training_executed": false,
+  "preparation_stdout": "Python: 3.13.15\nNumPy: 2.5.3\nCuPy: 14.2.0\nGPU 数量: 1\nGPU 型号: NVIDIA GeForce RTX 5060\nx_train: (5000, 28, 28)\ny_train: (5000,)\nx_test: (1000, 28, 28)\ny_test: (1000,)\n一张图片: (28, 28)\n一行像素: (28,)\n像素范围: 0.0 1.0\n第一张图片的标签: 5\n训练输入的实际设备: <CUDA Device 0>\n测试输入的实际设备: <CUDA Device 0>\nW_in: (28, 32)\nb_in: (32,)\nX: (28, 28)\nembedding: (28, 32)\n一行映射后的特征: (32,)\nW_in 的实际设备: <CUDA Device 0>\nembedding 的实际设备: <CUDA Device 0>\nposition_encoding: (28, 32)\nencoder_input: (28, 32)\n第 0 行位置编码的前 6 个值: [0. 1. 0. 1. 0. 1.]\n第 1 行位置编码的前 6 个值: [0.841471   0.5403023  0.53316844 0.84600914 0.3109836  0.95041525]\nencoder_input 的实际设备: <CUDA Device 0>\n",
+  "step_stdout": "W_Q: (32, 32)\nW_K: (32, 32)\nW_V: (32, 32)\nQ: (28, 32)\nK: (28, 32)\nV: (28, 32)\nQ 的实际设备: <CUDA Device 0>\nK 的实际设备: <CUDA Device 0>\nV 的实际设备: <CUDA Device 0>\n"
+}

@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-07",
+  "timezone": "Asia/Shanghai",
+  "version": "v006",
+  "recorded_at": "2026-10-07T08:32:20.081081+08:00",
+  "scope": "多头缩放点积匹配分数GPU验证；未计算softmax、损失、梯度或训练",
+  "python": "3.13.15",
+  "executable": "F:\\PythonProjects\\deep_learning\\.venv\\Scripts\\python.exe",
+  "numpy": "2.5.3",
+  "cupy": "14.2.0",
+  "selected_device": 0,
+  "gpu_name": "NVIDIA GeForce RTX 5060",
+  "cupy_visible_gpu_count": 1,
+  "user_source_path": "F:\\PythonProjects\\deep_learning\\transformer_mnist.py",
+  "user_source_sha256": "aa4472c370d3c55c3622dccfe6985ef9539808b7e2427b780670b5f1b076fa2a",
+  "user_source_unchanged": true,
+  "data_path": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "data_sha256": "731c5ac602752760c8e48fbffcf8c3b850d9dc2a2aedcf2cc48468fc17b673d1",
+  "chat_fragment": "# ==================================================\n# 计算每个头的匹配分数\n# ==================================================\n\nK_transposed = K_heads.transpose(0, 2, 1)\n\nattention_scores = cp.matmul(Q_heads, K_transposed)\nattention_scores = attention_scores / cp.sqrt(cp.float32(head_dim))\n\nprint(\"K_transposed:\", K_transposed.shape)\nprint(\"attention_scores:\", attention_scores.shape)\nprint(\"第 0 个头的分数矩阵:\", attention_scores[0].shape)\nprint(\"attention_scores 的实际设备:\", attention_scores.device)\n",
+  "chat_fragment_sha256": "4acedfd53de9575992cd5c41a2b0461c0bdcb901b50485db6ba43508d9499391",
+  "config": {
+    "seq_len": 28,
+    "d_model": 32,
+    "num_heads": 4,
+    "head_dim": 8,
+    "scaling_denominator_float64": 2.8284271247461903
+  },
+  "shapes": {
+    "Q_heads": [
+      4,
+      28,
+      8
+    ],
+    "K_heads": [
+      4,
+      28,
+      8
+    ],
+    "K_transposed": [
+      4,
+      8,
+      28
+    ],
+    "attention_scores": [
+      4,
+      28,
+      28
+    ]
+  },
+  "attention_scores_device": "<CUDA Device 0>",
+  "attention_scores_dtype": "float32",
+  "all_scores_finite": true,
+  "input_Q_K_unchanged": true,
+  "key_transpose_preserves_head_and_swaps_last_axes": true,
+  "cpu_float64_reference_match": true,
+  "cpu_reference_rtol": 1e-05,
+  "cpu_reference_atol": 2e-06,
+  "cpu_reference_max_abs_error": 5.833436189650598e-08,
+  "score_min": -0.49995145201683044,
+  "score_max": 0.3531363308429718,
+  "score_example_h0_i0_j0": -0.11117181926965714,
+  "new_trainable_parameter_count": 0,
+  "softmax_executed": false,
+  "V_aggregation_executed": false,
+  "gradient_computation_executed": false,
+  "parameter_updates": 0,
+  "transformer_training_executed": false,
+  "preparation_stdout": "Python: 3.13.15\nNumPy: 2.5.3\nCuPy: 14.2.0\nGPU 数量: 1\nGPU 型号: NVIDIA GeForce RTX 5060\nx_train: (5000, 28, 28)\ny_train: (5000,)\nx_test: (1000, 28, 28)\ny_test: (1000,)\n一张图片: (28, 28)\n一行像素: (28,)\n像素范围: 0.0 1.0\n第一张图片的标签: 5\n训练输入的实际设备: <CUDA Device 0>\n测试输入的实际设备: <CUDA Device 0>\nW_in: (28, 32)\nb_in: (32,)\nX: (28, 28)\nembedding: (28, 32)\n一行映射后的特征: (32,)\nW_in 的实际设备: <CUDA Device 0>\nembedding 的实际设备: <CUDA Device 0>\nposition_encoding: (28, 32)\nencoder_input: (28, 32)\n第 0 行位置编码的前 6 个值: [0. 1. 0. 1. 0. 1.]\n第 1 行位置编码的前 6 个值: [0.841471   0.5403023  0.53316844 0.84600914 0.3109836  0.95041525]\nencoder_input 的实际设备: <CUDA Device 0>\nW_Q: (32, 32)\nW_K: (32, 32)\nW_V: (32, 32)\nQ: (28, 32)\nK: (28, 32)\nV: (28, 32)\nQ 的实际设备: <CUDA Device 0>\nK 的实际设备: <CUDA Device 0>\nV 的实际设备: <CUDA Device 0>\n每个头的特征数: 8\nQ_heads: (4, 28, 8)\nK_heads: (4, 28, 8)\nV_heads: (4, 28, 8)\n第 0 个头的 Q: (28, 8)\nQ_heads 的实际设备: <CUDA Device 0>\n",
+  "step_stdout": "K_transposed: (4, 8, 28)\nattention_scores: (4, 28, 28)\n第 0 个头的分数矩阵: (28, 28)\nattention_scores 的实际设备: <CUDA Device 0>\n"
+}

@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-06",
+  "version": "v007",
+  "stage": "per_step_forward_snapshot_cache",
+  "source_path": "F:\\PythonProjects\\deep_learning\\lstm_from_scratch.py",
+  "original_source_sha256": "d9a1bb8b85b64d37dac816a655a7bb579c59de868ec5b3a8926fbb3a65250726",
+  "cache_source_in_memory_sha256": "3de75e5ee374fe75797830131f29e23fab21bb7989e25007e75ebe4b66ac9103",
+  "dataset_source": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "sample_index": 0,
+  "label": 5,
+  "cache_length": 28,
+  "cache_keys": [
+    "combined",
+    "c_prev",
+    "f",
+    "i_gate",
+    "g",
+    "o",
+    "c",
+    "h"
+  ],
+  "cache_vector_shapes": {
+    "combined": [
+      92
+    ],
+    "c_prev": [
+      64
+    ],
+    "f": [
+      64
+    ],
+    "i_gate": [
+      64
+    ],
+    "g": [
+      64
+    ],
+    "o": [
+      64
+    ],
+    "c": [
+      64
+    ],
+    "h": [
+      64
+    ]
+  },
+  "all_28_step_shape_and_finite_checks_passed": true,
+  "input_rows_and_state_continuity_checks_passed": true,
+  "initial_state_zero_checks_passed": true,
+  "snapshot_copy_and_memory_independence_checks_passed": true,
+  "last_cache_state_equals_final_state": true,
+  "baseline_output_loss_and_classifier_gradients_unchanged": true,
+  "parameters_unchanged": true,
+  "loss": 0.08934437001590566,
+  "prediction": 5,
+  "first_h_first_five": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "last_h_first_five": [
+    -0.018010017183758553,
+    0.10552455075262815,
+    0.1199211642902725,
+    0.03394707758328046,
+    -0.03881330455260081
+  ],
+  "isolated_forward_runs": 2,
+  "runs_reason": "baseline and cached forward comparison, no training",
+  "bptt_executed": false,
+  "lstm_internal_backward_executed": false,
+  "optimizer_update_executed": false,
+  "model_trained": false,
+  "test_set_evaluated": false,
+  "lesson_stdout": "缓存的时间步数: 28\n第一步 combined: (92,)\n最后一步 c: (64,)\n最后一步 h: (64,)\n",
+  "python": "3.13.15",
+  "numpy": "2.5.3",
+  "actual_device": "CPU",
+  "dtype": "float64",
+  "cpu_identifier": "AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",
+  "execution": "in-memory insertion into actual saved code; project interpreter with local-cache first image",
+  "user_python_file_modified_by_assistant": false
+}

@@ -1,0 +1,4 @@
+# 2026-10-06: 新增 GPU 数组后端；模型计算计划手写，不使用自动求导。
+cupy-cuda13x==14.2.0
+# 当前项目已有 torch 的 CUDA 13.2 DLL，复用其 DLL；本包补充 CUDA 头文件。
+nvidia-cuda-runtime==13.2.51

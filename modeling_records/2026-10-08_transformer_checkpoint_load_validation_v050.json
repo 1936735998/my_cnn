@@ -1,0 +1,690 @@
+{
+  "date": "2026-10-08",
+  "timezone": "Asia/Shanghai",
+  "version": "v050",
+  "recorded_at": "2026-10-08T11:58:39.004978+08:00",
+  "scope": "只读用户实际保存的npz到独立GPU数组，比较测试第0图与v048实际权重推理",
+  "execution_type": "actual_user_checkpoint_read_and_gpu_inference_validation_no_training",
+  "new_parameter_updates_executed": 0,
+  "main_script_executed": false,
+  "previous_training_or_evaluation_replayed": false,
+  "full_dataset_evaluation_executed_this_step": false,
+  "forward_calls_this_step": 2,
+  "single_image_comparison_count": 1,
+  "backward_calls_this_step": 0,
+  "full_finite_difference_executed_this_step": false,
+  "python": "3.13.15",
+  "executable": "F:\\PythonProjects\\deep_learning\\.venv\\Scripts\\python.exe",
+  "numpy": "2.5.3",
+  "cupy": "14.2.0",
+  "gpu_name": "NVIDIA GeForce RTX 5060",
+  "selected_device": 0,
+  "cupy_visible_gpu_count": 1,
+  "user_source_path": "F:\\PythonProjects\\deep_learning\\transformer_mnist.py",
+  "user_source_sha256": "21c209e8f710f229f895436090d19e80d10f3a6aed6d1e2e6f43bb22102a5154",
+  "user_source_unchanged": true,
+  "data_path": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "data_sha256": "731c5ac602752760c8e48fbffcf8c3b850d9dc2a2aedcf2cc48468fc17b673d1",
+  "data_file_unchanged": true,
+  "dataset_shapes": {
+    "x_test": [
+      1000,
+      28,
+      28
+    ],
+    "y_test": [
+      1000
+    ]
+  },
+  "dataset_array_sha256": {
+    "x_test": "0678d37d56a66e061e86a601c8c1728563295db8af2a0cc02d7e31ffa60a62a7",
+    "y_test": "992b69438d87b900106a411d378c4337fedce245a9d6f4a4d0656e85b022e733"
+  },
+  "dataset_arrays_match_v048": true,
+  "prior_v048_evidence_path": "C:\\Users\\19367\\Documents\\Codex\\2026-10-06\\wo\\outputs\\transformer_v048\\2026-10-08_transformer_full_training_validation_v048.json",
+  "prior_v048_evidence_sha256": "7a0d42e1e0e7a65e2693c37a14fe853ff9330d961801a94f5dc60a81d115ef12",
+  "old_record_sha256_before_and_after": {
+    "C:\\Users\\19367\\Documents\\Codex\\2026-10-06\\wo\\outputs\\transformer_v048\\2026-10-08_transformer_full_training_validation_v048.json": "7a0d42e1e0e7a65e2693c37a14fe853ff9330d961801a94f5dc60a81d115ef12",
+    "C:\\Users\\19367\\Documents\\Codex\\2026-10-06\\wo\\outputs\\transformer_v049\\2026-10-08_transformer_mnist_v049.md": "38cb51512b5f3d4f4aeeb4bab6fa020cb70b2e480e3571f0879da4b435bc3895",
+    "C:\\Users\\19367\\Documents\\Codex\\2026-10-06\\wo\\outputs\\transformer_v049\\2026-10-08_transformer_checkpoint_validation_v049.json": "dc476eda46b0fc14a5dcb8bd44eb7805e1daff430a103fe43db0241ecc374350",
+    "F:\\PythonProjects\\deep_learning\\modeling_records\\2026-10-08_transformer_mnist_v048.md": "82437628b4b328f49762458b89aad1ea9ddcffb9308db95871d382ecbfb16be6",
+    "F:\\PythonProjects\\deep_learning\\modeling_records\\2026-10-08_transformer_full_training_validation_v048.json": "7a0d42e1e0e7a65e2693c37a14fe853ff9330d961801a94f5dc60a81d115ef12",
+    "F:\\PythonProjects\\deep_learning\\modeling_records\\2026-10-08_transformer_mnist_v049.md": "38cb51512b5f3d4f4aeeb4bab6fa020cb70b2e480e3571f0879da4b435bc3895",
+    "F:\\PythonProjects\\deep_learning\\modeling_records\\2026-10-08_transformer_checkpoint_validation_v049.json": "dc476eda46b0fc14a5dcb8bd44eb7805e1daff430a103fe43db0241ecc374350"
+  },
+  "old_records_unchanged": true,
+  "original_weight_provenance": "v048真实GPU训练证据parameter_snapshots[name].after转float32，每项核对after_sha256，再复制GPU；不执行主文件或训练",
+  "loaded_weight_provenance": "用户报告并实际存在的transformer_mnist_20261008_115104_418995.npz，以allow_pickle=False只读并由精确片段复制到独立GPU数组",
+  "weights_restored_from_actual_snapshot_without_retraining": true,
+  "parameter_checks": {
+    "W_in": {
+      "shape": [
+        28,
+        32
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "8eb6aa195b314c64e18d8eb19b801575c2a0450b22be0ebae87a545c882a70ce",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "b_in": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "b85cbf18023c4d6a94606d057b21096ecf0e02c0fecedb30a571c069d43ca5e5",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "W_Q": {
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "581e7ee1e7233238a2945b5c489ae809b7c956262f3d49c786896a773eb7524b",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "b_Q": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "ebd3960cc85f88621b9a9041f39f476ef3978350d4930c9dbe1bfd8559e8d4b3",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "W_K": {
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "ab84d0d243b51bf5a68f9699a7aee94b4fd48943dcb86b48031cc5ebf8964bb8",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "b_K": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "9b1b38136496cbc176b8547105ea78d0f5468a790dfc9441328a5402139ecab7",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "W_V": {
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "7ea10e5ebc0ce52b1a34edf1fac1d3ddf81f27b1e8f043edc74ac3f1ab974e5a",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "b_V": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "1571a7fc47a9de552096aa24ca6da528fb2325d420fa82cb2f3720d371140092",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "W_O": {
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "d68a487b493f54987d8765dd79e15c2fb04403ec455d976e7293571cf28a1ad6",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "b_O": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "6177937347e62e28b69ecc60ef278d2496d449232fc0a0cbc9bf291cd421af65",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "gamma_attn": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "822cd8af95aea79824c96b928e1a8a311dd94df7c213d6ce55af3c27f0419f91",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "beta_attn": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "e413268a5b4e0d41e46ee282346b453a7a6423cda5a28d5f306d081562c1bf62",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "W_ff1": {
+      "shape": [
+        32,
+        64
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "63f0657d27f52652ba95d3cc7e687478b08bbf14d54572df2934bc72d1d13727",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "b_ff1": {
+      "shape": [
+        64
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "c1b51d1036927e585d68f128a3aed8633c99db44fd9aade0264edbc5297ae07c",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "W_ff2": {
+      "shape": [
+        64,
+        32
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "a13c2f0825b3334c37ae352340665313f679a27b1bf3a10af1b81513a872867c",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "b_ff2": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "6b5e7218ddb45b9ff55049f00914c8cd2e5608a311ccdfcc209c2d081accbb46",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "gamma_ffn": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "64e7f5797f0f9b3f977ce49fac3c229b63221a0188d9ecc991c531fac5f68d68",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "beta_ffn": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "dff9f7c991358130f2f8a11b1c3d65084ad83885995649ca27c9a20110709d4c",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "W_cls": {
+      "shape": [
+        32,
+        10
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "d864f3d3828a892ff98a19276df410edfb3413ec0c88c88473ff4b1beabd6c0e",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    },
+    "b_cls": {
+      "shape": [
+        10
+      ],
+      "dtype": "float32",
+      "v048_after_sha256": "bd012845f93ae2e2336fdc7d9507535d8dca42a7a88f13dae22c50a62db51d1f",
+      "original_gpu_snapshot_reconstruction_exact": true,
+      "actual_user_checkpoint_matches_v048_bytes": true,
+      "loaded_gpu_array_matches_original_bits": true,
+      "loaded_gpu_array_has_independent_storage": true
+    }
+  },
+  "parameter_array_count": 20,
+  "parameter_scalar_count": 9802,
+  "position_encoding_source": "position = cp.arange(seq_len, dtype=cp.float32).reshape(seq_len, 1)\ndimension_index = cp.arange(0, d_model, 2, dtype=cp.float32)\nangles = position / (10000 ** (dimension_index / d_model))\nposition_encoding = cp.zeros((seq_len, d_model), dtype=cp.float32)\nposition_encoding[:, 0::2] = cp.sin(angles)\nposition_encoding[:, 1::2] = cp.cos(angles)\n",
+  "position_encoding_sha256": "5ff07736b815787e93c5b28bac57b784603e51c397187bb46de95ded4e0363bb",
+  "position_encoding_matches_v048_bytes": true,
+  "configuration_source": "num_heads = 4\nln_eps = cp.float32(1e-5)\n",
+  "bootstrap_prefix_source": "import ctypes\nimport os\nimport sys\nfrom importlib.util import find_spec\nfrom pathlib import Path\n\nimport numpy as np\n\n\n# ==================================================\n# GPU 环境准备\n# 复用项目已有的 CUDA 库，不使用 PyTorch 计算模型\n# ==================================================\n\ntorch_spec = find_spec(\"torch\")\n\nif torch_spec is None:\n    raise RuntimeError(\"请检查是否选择了项目的 .venv 解释器\")\n\ncuda_library_path = Path(torch_spec.origin).parent / \"lib\"\n\ncuda_dll_handle = os.add_dll_directory(str(cuda_library_path))\n\ncuda_library_handles = [\n    ctypes.WinDLL(str(cuda_library_path / name))\n    for name in (\n        \"nvrtc64_130_0.dll\",\n        \"cublasLt64_13.dll\",\n        \"cublas64_13.dll\",\n        \"curand64_10.dll\",\n    )\n]\n\nimport cupy as cp\n",
+  "executed_ast_scope": "原CUDA环境prefix至import cupy；六条原位置编码语句；num_heads/ln_eps赋值；仅forward_one_image定义；精确加载片段",
+  "forward_source": "def forward_one_image(X, target, params, position_encoding, num_heads, ln_eps):\n    seq_len = X.shape[0]\n    d_model = params[\"W_in\"].shape[1]\n    head_dim = d_model // num_heads\n\n    # 1. 输入映射与位置编码\n    embedding = cp.dot(X, params[\"W_in\"]) + params[\"b_in\"]\n    encoder_input = embedding + position_encoding\n\n    # 2. Q、K、V 投影与拆头\n    Q = cp.dot(encoder_input, params[\"W_Q\"]) + params[\"b_Q\"]\n    K = cp.dot(encoder_input, params[\"W_K\"]) + params[\"b_K\"]\n    V = cp.dot(encoder_input, params[\"W_V\"]) + params[\"b_V\"]\n\n    Q_heads = Q.reshape(seq_len, num_heads, head_dim).transpose(1, 0, 2)\n    K_heads = K.reshape(seq_len, num_heads, head_dim).transpose(1, 0, 2)\n    V_heads = V.reshape(seq_len, num_heads, head_dim).transpose(1, 0, 2)\n\n    # 3. 缩放分数、softmax 与加权汇总\n    attention_scores = cp.matmul(Q_heads, K_heads.transpose(0, 2, 1))\n    attention_scores = attention_scores / cp.sqrt(cp.float32(head_dim))\n    scores_shifted = attention_scores - cp.max(\n        attention_scores, axis=-1, keepdims=True\n    )\n    exp_scores = cp.exp(scores_shifted)\n    attention_weights = exp_scores / cp.sum(exp_scores, axis=-1, keepdims=True)\n\n    head_output = cp.matmul(attention_weights, V_heads)\n    concatenated_heads = head_output.transpose(1, 0, 2).reshape(seq_len, d_model)\n    attention_output = cp.dot(concatenated_heads, params[\"W_O\"]) + params[\"b_O\"]\n\n    # 4. 注意力残差与第一次 LayerNorm\n    attention_residual = encoder_input + attention_output\n    mean_attn = cp.mean(attention_residual, axis=-1, keepdims=True)\n    centered_attn = attention_residual - mean_attn\n    var_attn = cp.mean(centered_attn ** 2, axis=-1, keepdims=True)\n    inv_std_attn = cp.float32(1.0) / cp.sqrt(var_attn + ln_eps)\n    normalized_attn = centered_attn * inv_std_attn\n    attention_norm = normalized_attn * params[\"gamma_attn\"] + params[\"beta_attn\"]\n\n    # 5. 前馈网络、残差与第二次 LayerNorm\n    ff_hidden_linear = cp.dot(attention_norm, params[\"W_ff1\"]) + params[\"b_ff1\"]\n    ff_hidden = cp.maximum(ff_hidden_linear, cp.float32(0.0))\n    ff_output = cp.dot(ff_hidden, params[\"W_ff2\"]) + params[\"b_ff2\"]\n    ff_residual = attention_norm + ff_output\n\n    mean_ffn = cp.mean(ff_residual, axis=-1, keepdims=True)\n    centered_ffn = ff_residual - mean_ffn\n    var_ffn = cp.mean(centered_ffn ** 2, axis=-1, keepdims=True)\n    inv_std_ffn = cp.float32(1.0) / cp.sqrt(var_ffn + ln_eps)\n    normalized_ffn = centered_ffn * inv_std_ffn\n    encoder_output = normalized_ffn * params[\"gamma_ffn\"] + params[\"beta_ffn\"]\n\n    # 6. 均值池化、分类概率与交叉熵\n    image_features = cp.mean(encoder_output, axis=0)\n    logits = cp.dot(image_features, params[\"W_cls\"]) + params[\"b_cls\"]\n    shifted_logits = logits - cp.max(logits)\n    exp_logits = cp.exp(shifted_logits)\n    probabilities = exp_logits / cp.sum(exp_logits)\n    loss = cp.log(cp.sum(exp_logits)) - shifted_logits[target]\n\n    # 留下这一轮反向传播需要的中间结果\n    cache = {\n        \"X\": X, \"encoder_input\": encoder_input,\n        \"Q_heads\": Q_heads, \"K_heads\": K_heads, \"V_heads\": V_heads,\n        \"attention_weights\": attention_weights,\n        \"concatenated_heads\": concatenated_heads,\n        \"inv_std_attn\": inv_std_attn, \"normalized_attn\": normalized_attn,\n        \"attention_norm\": attention_norm,\n        \"ff_hidden_linear\": ff_hidden_linear, \"ff_hidden\": ff_hidden,\n        \"inv_std_ffn\": inv_std_ffn, \"normalized_ffn\": normalized_ffn,\n        \"encoder_output\": encoder_output, \"image_features\": image_features,\n        \"probabilities\": probabilities, \"target\": target,\n        \"num_heads\": num_heads, \"head_dim\": head_dim,\n    }\n    return loss, probabilities, cache\n",
+  "forward_source_sha256": "7daa2b6bc78768ed99e37bcc1e42f84a7b662a548c8d3836f7150f2c4474417a",
+  "forward_source_exactly_matches_v048": true,
+  "chat_fragment": "from pathlib import Path\n\n# 明确读取你刚才保存的这个文件。\nload_checkpoint_path = Path(\n    \"F:/PythonProjects/deep_learning/outputs/checkpoints/\"\n    \"transformer_mnist_20261008_115104_418995.npz\"\n)\n\n# 新加载的数组放在 GPU 0。\ncp.cuda.Device(0).use()\n\nwith np.load(load_checkpoint_path, allow_pickle=False) as saved_checkpoint:\n    if int(saved_checkpoint[\"format_version\"].item()) != 1:\n        raise ValueError(\"当前代码支持第 1 版参数文件\")\n\n    loaded_parameter_names = saved_checkpoint[\"parameter_names\"].tolist()\n    loaded_params = {\n        name: cp.asarray(saved_checkpoint[name], dtype=cp.float32)\n        for name in loaded_parameter_names\n    }\n    loaded_position_encoding = cp.asarray(\n        saved_checkpoint[\"position_encoding\"], dtype=cp.float32\n    )\n    loaded_num_heads = int(saved_checkpoint[\"num_heads\"].item())\n    loaded_ln_eps = cp.float32(saved_checkpoint[\"ln_eps\"].item())\n    loaded_pixel_divisor = float(saved_checkpoint[\"pixel_divisor\"].item())\n\n# 比较全部参数和固定位置编码。\nloaded_parameters_match = all(\n    bool(cp.array_equal(params[name], loaded_params[name]))\n    for name in params\n)\nloaded_positions_match = bool(\n    cp.array_equal(position_encoding, loaded_position_encoding)\n)\n\n# x_test 已经除过 255，这里直接使用，不再重复归一化。\nload_sample_index = 0\nload_target = int(y_test[load_sample_index])\n\nload_loss_original, load_probabilities_original, load_cache_original = forward_one_image(\n    x_test[load_sample_index], load_target, params,\n    position_encoding, num_heads, ln_eps\n)\nload_loss_restored, load_probabilities_restored, load_cache_restored = forward_one_image(\n    x_test[load_sample_index], load_target, loaded_params,\n    loaded_position_encoding, loaded_num_heads, loaded_ln_eps\n)\n\nprint(\"读取的文件:\", load_checkpoint_path)\nprint(\"加载的参数数组数量:\", len(loaded_params))\nprint(\"加载的参数标量总数:\", sum(value.size for value in loaded_params.values()))\nprint(\"加载的位置编码形状:\", loaded_position_encoding.shape)\nprint(\"加载的 W_in 的实际设备:\", loaded_params[\"W_in\"].device)\nprint(\"加载的 W_in 的数据类型:\", loaded_params[\"W_in\"].dtype)\nprint(\"全部参数是否与当前模型相同:\", loaded_parameters_match)\nprint(\"位置编码是否相同:\", loaded_positions_match)\nprint(\"真实标签:\", load_target)\nprint(\"当前模型预测:\", int(cp.argmax(load_probabilities_original)))\nprint(\"加载后模型预测:\", int(cp.argmax(load_probabilities_restored)))\nprint(\"当前模型损失:\", float(load_loss_original))\nprint(\"加载后模型损失:\", float(load_loss_restored))\nprint(\"概率最大绝对差:\", float(cp.max(cp.abs(\n    load_probabilities_original - load_probabilities_restored\n))))\n",
+  "chat_fragment_sha256": "f286fb5eeb2143efaa953708383d20a8c5b1d11b11467be559b22b283f6bb07f",
+  "verification_fragment_path": "C:\\Users\\19367\\Documents\\Codex\\2026-10-06\\wo\\work\\transformer_step50_fragment.txt",
+  "verification_fragment_bytes_sha256": "f286fb5eeb2143efaa953708383d20a8c5b1d11b11467be559b22b283f6bb07f",
+  "checkpoint_path": "F:\\PythonProjects\\deep_learning\\outputs\\checkpoints\\transformer_mnist_20261008_115104_418995.npz",
+  "checkpoint_filename": "transformer_mnist_20261008_115104_418995.npz",
+  "checkpoint_bytes": 50006,
+  "checkpoint_sha256": "349eff0650c37163be783b58d4f39d256b796091884c624428f131d2a320f218",
+  "checkpoint_evidence_relative_path": "checkpoints/transformer_mnist_20261008_115104_418995.npz",
+  "checkpoint_member_count": 26,
+  "checkpoint_members": {
+    "W_in": {
+      "shape": [
+        28,
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 896,
+      "sha256": "8eb6aa195b314c64e18d8eb19b801575c2a0450b22be0ebae87a545c882a70ce",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "b_in": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 32,
+      "sha256": "b85cbf18023c4d6a94606d057b21096ecf0e02c0fecedb30a571c069d43ca5e5",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "W_Q": {
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 1024,
+      "sha256": "581e7ee1e7233238a2945b5c489ae809b7c956262f3d49c786896a773eb7524b",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "b_Q": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 32,
+      "sha256": "ebd3960cc85f88621b9a9041f39f476ef3978350d4930c9dbe1bfd8559e8d4b3",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "W_K": {
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 1024,
+      "sha256": "ab84d0d243b51bf5a68f9699a7aee94b4fd48943dcb86b48031cc5ebf8964bb8",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "b_K": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 32,
+      "sha256": "9b1b38136496cbc176b8547105ea78d0f5468a790dfc9441328a5402139ecab7",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "W_V": {
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 1024,
+      "sha256": "7ea10e5ebc0ce52b1a34edf1fac1d3ddf81f27b1e8f043edc74ac3f1ab974e5a",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "b_V": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 32,
+      "sha256": "1571a7fc47a9de552096aa24ca6da528fb2325d420fa82cb2f3720d371140092",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "W_O": {
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 1024,
+      "sha256": "d68a487b493f54987d8765dd79e15c2fb04403ec455d976e7293571cf28a1ad6",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "b_O": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 32,
+      "sha256": "6177937347e62e28b69ecc60ef278d2496d449232fc0a0cbc9bf291cd421af65",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "gamma_attn": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 32,
+      "sha256": "822cd8af95aea79824c96b928e1a8a311dd94df7c213d6ce55af3c27f0419f91",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "beta_attn": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 32,
+      "sha256": "e413268a5b4e0d41e46ee282346b453a7a6423cda5a28d5f306d081562c1bf62",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "W_ff1": {
+      "shape": [
+        32,
+        64
+      ],
+      "dtype": "float32",
+      "scalar_count": 2048,
+      "sha256": "63f0657d27f52652ba95d3cc7e687478b08bbf14d54572df2934bc72d1d13727",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "b_ff1": {
+      "shape": [
+        64
+      ],
+      "dtype": "float32",
+      "scalar_count": 64,
+      "sha256": "c1b51d1036927e585d68f128a3aed8633c99db44fd9aade0264edbc5297ae07c",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "W_ff2": {
+      "shape": [
+        64,
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 2048,
+      "sha256": "a13c2f0825b3334c37ae352340665313f679a27b1bf3a10af1b81513a872867c",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "b_ff2": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 32,
+      "sha256": "6b5e7218ddb45b9ff55049f00914c8cd2e5608a311ccdfcc209c2d081accbb46",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "gamma_ffn": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 32,
+      "sha256": "64e7f5797f0f9b3f977ce49fac3c229b63221a0188d9ecc991c531fac5f68d68",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "beta_ffn": {
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 32,
+      "sha256": "dff9f7c991358130f2f8a11b1c3d65084ad83885995649ca27c9a20110709d4c",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "W_cls": {
+      "shape": [
+        32,
+        10
+      ],
+      "dtype": "float32",
+      "scalar_count": 320,
+      "sha256": "d864f3d3828a892ff98a19276df410edfb3413ec0c88c88473ff4b1beabd6c0e",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "b_cls": {
+      "shape": [
+        10
+      ],
+      "dtype": "float32",
+      "scalar_count": 10,
+      "sha256": "bd012845f93ae2e2336fdc7d9507535d8dca42a7a88f13dae22c50a62db51d1f",
+      "has_object_dtype": false,
+      "matches_v048_final_parameter_bytes": true
+    },
+    "parameter_names": {
+      "shape": [
+        20
+      ],
+      "dtype": "<U10",
+      "scalar_count": 20,
+      "sha256": "dfa4852130b1b7cccd617a6f7ed0ea3cf73e230369886283f74e8221acd93eaa",
+      "has_object_dtype": false,
+      "value": [
+        "W_in",
+        "b_in",
+        "W_Q",
+        "b_Q",
+        "W_K",
+        "b_K",
+        "W_V",
+        "b_V",
+        "W_O",
+        "b_O",
+        "gamma_attn",
+        "beta_attn",
+        "W_ff1",
+        "b_ff1",
+        "W_ff2",
+        "b_ff2",
+        "gamma_ffn",
+        "beta_ffn",
+        "W_cls",
+        "b_cls"
+      ]
+    },
+    "position_encoding": {
+      "shape": [
+        28,
+        32
+      ],
+      "dtype": "float32",
+      "scalar_count": 896,
+      "sha256": "5ff07736b815787e93c5b28bac57b784603e51c397187bb46de95ded4e0363bb",
+      "has_object_dtype": false
+    },
+    "num_heads": {
+      "shape": [],
+      "dtype": "int32",
+      "scalar_count": 1,
+      "sha256": "fb5e512425fc9449316ec95969ebe71e2d576dbab833d61e2a5b9330fd70ee02",
+      "has_object_dtype": false,
+      "value": 4
+    },
+    "ln_eps": {
+      "shape": [],
+      "dtype": "float32",
+      "scalar_count": 1,
+      "sha256": "e6540c5b3269d9a6e3646dd482c2a7fe6b58e101e80007556892bb770099a68c",
+      "has_object_dtype": false,
+      "value": 9.999999747378752e-06
+    },
+    "pixel_divisor": {
+      "shape": [],
+      "dtype": "float32",
+      "scalar_count": 1,
+      "sha256": "270696d298cc689d8e5bd75897918aa617a25a5030ccae98017053dddd974995",
+      "has_object_dtype": false,
+      "value": 255.0
+    },
+    "format_version": {
+      "shape": [],
+      "dtype": "int32",
+      "scalar_count": 1,
+      "sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450",
+      "has_object_dtype": false,
+      "value": 1
+    }
+  },
+  "original_user_checkpoint_written_or_resaved_this_step": false,
+  "original_user_checkpoint_unchanged": true,
+  "checkpoint_evidence_copy_is_byte_copy_without_numpy_reserialization": true,
+  "checkpoint_read_with_allow_pickle_false": true,
+  "all_members_have_non_object_dtype": true,
+  "all_loaded_parameter_and_position_bytes_match_original": true,
+  "independent_loaded_gpu_arrays": true,
+  "original_params_not_overwritten": true,
+  "all_original_parameters_position_and_data_unchanged_identity_and_storage_preserved": true,
+  "all_original_and_loaded_parameters_float32_finite_gpu0": true,
+  "random_api_called": false,
+  "random_calls": [],
+  "random_call_guard_names": [
+    "get_random_state",
+    "set_random_state",
+    "seed",
+    "rand",
+    "randn",
+    "random",
+    "random_sample",
+    "uniform",
+    "normal",
+    "randint",
+    "choice",
+    "shuffle",
+    "permutation",
+    "bytes",
+    "default_rng",
+    "RandomState"
+  ],
+  "random_guards_restored": true,
+  "random_state_serialized_or_restored": false,
+  "random_state_protection_method": "AST检查无cp.random并禁止公共随机生成、seed、状态API；没有取用随机状态",
+  "prediction_check": {
+    "dataset": "test",
+    "sample_index": 0,
+    "target": 7,
+    "original_loss": 0.005684994161128998,
+    "loaded_loss": 0.005684994161128998,
+    "original_probabilities": [
+      3.210388754837368e-08,
+      1.6617516394035192e-06,
+      0.0009479078580625355,
+      0.004204863682389259,
+      8.171546141966246e-06,
+      0.00012660605716519058,
+      2.2808545330210706e-10,
+      0.9943311214447021,
+      1.1790192502303398e-06,
+      0.00037854185211472213
+    ],
+    "loaded_probabilities": [
+      3.210388754837368e-08,
+      1.6617516394035192e-06,
+      0.0009479078580625355,
+      0.004204863682389259,
+      8.171546141966246e-06,
+      0.00012660605716519058,
+      2.2808545330210706e-10,
+      0.9943311214447021,
+      1.1790192502303398e-06,
+      0.00037854185211472213
+    ],
+    "original_prediction": 7,
+    "loaded_prediction": 7,
+    "probability_max_absolute_difference": 0.0,
+    "loss_bitwise_equal": true,
+    "all_probabilities_bitwise_equal": true,
+    "historical_v048_loss": 0.005684994161128998,
+    "historical_v048_target_probability": 0.9943311214447021,
+    "matches_v048_prediction": true,
+    "v048_loss_bitwise_equal": true,
+    "v048_target_probability_bitwise_equal": true
+  },
+  "historical_v048_fixed_metrics_not_recomputed_this_step": {
+    "train": {
+      "sample_count": 5000,
+      "fixed_model_mean_loss_gpu_float32": 0.34107816219329834,
+      "fixed_model_accuracy_gpu_float32": 0.8924000263214111,
+      "fixed_model_accuracy_percent": 89.24000263214111,
+      "independently_counted_correct": 4462,
+      "independent_sequential_float32_loss_sum": 1705.3907470703125,
+      "independent_sequential_float32_mean_loss": 0.34107816219329834,
+      "parameters_strictly_unchanged_during_evaluation": true
+    },
+    "test": {
+      "sample_count": 1000,
+      "fixed_model_mean_loss_gpu_float32": 0.4118737280368805,
+      "fixed_model_accuracy_gpu_float32": 0.875,
+      "fixed_model_accuracy_percent": 87.5,
+      "independently_counted_correct": 875,
+      "independent_sequential_float32_loss_sum": 411.87371826171875,
+      "independent_sequential_float32_mean_loss": 0.4118737280368805,
+      "parameters_strictly_unchanged_during_evaluation": true
+    }
+  },
+  "step_stdout": "读取的文件: F:\\PythonProjects\\deep_learning\\outputs\\checkpoints\\transformer_mnist_20261008_115104_418995.npz\n加载的参数数组数量: 20\n加载的参数标量总数: 9802\n加载的位置编码形状: (28, 32)\n加载的 W_in 的实际设备: <CUDA Device 0>\n加载的 W_in 的数据类型: float32\n全部参数是否与当前模型相同: True\n位置编码是否相同: True\n真实标签: 7\n当前模型预测: 7\n加载后模型预测: 7\n当前模型损失: 0.005684994161128998\n加载后模型损失: 0.005684994161128998\n概率最大绝对差: 0.0\n"
+}

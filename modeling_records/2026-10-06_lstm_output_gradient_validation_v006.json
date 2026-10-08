@@ -1,0 +1,175 @@
+{
+  "date": "2026-10-06",
+  "version": "v006",
+  "stage": "classifier_backward_only",
+  "source_path": "F:\\PythonProjects\\deep_learning\\lstm_from_scratch.py",
+  "source_sha256": "2aecc5b9c659c3ce57c09fa58f9be0cc2f066fd9e71aed0993aa3afbd9d003cd",
+  "dataset_source": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "sample_index": 0,
+  "label": 5,
+  "loss": 0.08934437001590566,
+  "output_size": 10,
+  "gradient_shapes": {
+    "d_output": [
+      10
+    ],
+    "d_W_y": [
+      64,
+      10
+    ],
+    "d_b_y": [
+      10
+    ],
+    "d_h": [
+      64
+    ]
+  },
+  "d_output": [
+    0.004773428254287881,
+    0.002475491735488976,
+    0.006131606208209425,
+    -0.019889032124167545,
+    -0.010486150777788708,
+    -0.18405889124310093,
+    -0.03134378409929712,
+    0.009226932501336299,
+    0.014634055751988983,
+    -0.0025109081281828637
+  ],
+  "d_h_final": [
+    -0.00014739453018091124,
+    0.007319635366466674,
+    0.01124312492860922,
+    0.0005775720781226144,
+    -0.0018854367263740292,
+    -0.013415858617356719,
+    -0.0293479387188012,
+    -0.0028637041419526154,
+    -0.009719774182022555,
+    0.004345061969547575,
+    -0.004751991941940093,
+    0.012706204380186228,
+    0.006537355221099004,
+    -0.020450551874087144,
+    -0.011011758587554321,
+    0.015421338408067564,
+    0.02207888585868956,
+    0.00011722997672012654,
+    0.013641100041992536,
+    -0.028257037596121706,
+    -0.014367763648129256,
+    0.024931109857389396,
+    -0.00973828547685748,
+    -0.016426587443396538,
+    -0.008005333032192957,
+    -0.011814182280981815,
+    -0.034079947623450964,
+    -0.016622543445393104,
+    -0.013678797950533702,
+    0.012905233060414734,
+    -0.02699343516368332,
+    0.019971309460282898,
+    -0.0065075380752566666,
+    -0.01774014247111992,
+    0.006660286133187022,
+    0.027587567180398776,
+    -0.015305876509967009,
+    0.01970274956136331,
+    0.020990048834917376,
+    0.0005708728036294274,
+    0.020152599375786798,
+    -0.007967508885476244,
+    -0.027139460213979102,
+    0.009948485811740597,
+    -0.007013217769447258,
+    -0.010843058997599558,
+    -0.00456764046299918,
+    0.004503028013176655,
+    -0.004391131112500967,
+    -0.001924313795885094,
+    0.005158804057350544,
+    0.04323638976558621,
+    0.0038732394242479515,
+    0.01045972825435237,
+    -0.031232941314602743,
+    -0.012774974173497464,
+    0.00287842306759467,
+    0.030583601683284094,
+    -0.018519752313574656,
+    0.0076222924129099165,
+    0.003765459507703011,
+    -0.01274958063712456,
+    -0.05298936643573315,
+    0.0009689673700091052
+  ],
+  "d_W_y_norm": 0.12137372649866038,
+  "finite_difference_method": "central difference using temporary copies of output, classifier weights, bias or final h; no LSTM-state chain perturbation",
+  "finite_difference_epsilon": 0.000001,
+  "finite_difference_absolute_tolerance": 1e-8,
+  "gradient_checks": {
+    "d_output": {
+      "checked_elements": 10,
+      "max_absolute_error": 6.65980725428339e-12,
+      "passed": true
+    },
+    "d_b_y": {
+      "checked_elements": 10,
+      "max_absolute_error": 6.65980725428339e-12,
+      "passed": true
+    },
+    "d_h_final_local": {
+      "checked_elements": 64,
+      "max_absolute_error": 2.0949894596888896e-11,
+      "passed": true
+    },
+    "d_W_y_sampled": {
+      "checked_elements": 6,
+      "max_absolute_error": 8.65708397437999e-12,
+      "passed": true,
+      "indices": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          16,
+          6
+        ],
+        [
+          38,
+          8
+        ],
+        [
+          63,
+          9
+        ]
+      ]
+    }
+  },
+  "all_shapes_and_finite_checks_passed": true,
+  "parameter_and_h_unchanged_checks_passed": true,
+  "bias_gradient_array_independent": true,
+  "lstm_internal_backward_executed": false,
+  "bptt_executed": false,
+  "optimizer_update_executed": false,
+  "parameters_updated": false,
+  "model_trained": false,
+  "test_set_evaluated": false,
+  "accuracy_reported": false,
+  "lesson_stdout": "d_output: (10,)\nd_W_y: (64, 10)\nd_b_y: (10,)\nd_h: (64,)\nd_output 的值: [ 0.00477343  0.00247549  0.00613161 -0.01988903 -0.01048615 -0.18405889\n -0.03134378  0.00922693  0.01463406 -0.00251091]\nd_h 前 5 个值: [-0.00014739  0.00731964  0.01124312  0.00057757 -0.00188544]\n",
+  "python": "3.13.15",
+  "numpy": "2.5.3",
+  "actual_device": "CPU",
+  "dtype": "float64",
+  "cpu_identifier": "AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",
+  "execution": "isolated snippets via project interpreter; local cache first image via np.load",
+  "user_python_file_modified_by_assistant": false
+}

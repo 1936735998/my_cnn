@@ -1,0 +1,134 @@
+{
+  "date": "2026-10-05",
+  "version": "v003",
+  "stage": "single_time_step_forward",
+  "source_path": "F:\\PythonProjects\\deep_learning\\lstm_from_scratch.py",
+  "source_sha256": "d9023f30958eb6a0a15072f1a3d1c171b5d31541dfd0592d0992852ebace7b18",
+  "dataset_source": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "sample_index": 0,
+  "sample_label": 5,
+  "row_index": 0,
+  "input_nonzero_count": 0,
+  "input_shape": [
+    28
+  ],
+  "combined_shape": [
+    92
+  ],
+  "concatenation_order": [
+    "x_t",
+    "h_prev"
+  ],
+  "initial_states_zero": true,
+  "vectors": {
+    "f": {
+      "shape": [
+        64
+      ],
+      "min": 0.7310585786300049,
+      "max": 0.7310585786300049,
+      "first_five": [
+        0.7310585786300049,
+        0.7310585786300049,
+        0.7310585786300049,
+        0.7310585786300049,
+        0.7310585786300049
+      ]
+    },
+    "i_gate": {
+      "shape": [
+        64
+      ],
+      "min": 0.5,
+      "max": 0.5,
+      "first_five": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "g": {
+      "shape": [
+        64
+      ],
+      "min": 0,
+      "max": 0,
+      "first_five": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "o": {
+      "shape": [
+        64
+      ],
+      "min": 0.5,
+      "max": 0.5,
+      "first_five": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "c": {
+      "shape": [
+        64
+      ],
+      "min": 0,
+      "max": 0,
+      "first_five": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "h": {
+      "shape": [
+        64
+      ],
+      "min": 0,
+      "max": 0,
+      "first_five": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "shape_and_finite_checks_passed": true,
+  "activation_range_checks_passed": true,
+  "state_equation_checks_passed": true,
+  "zero_row_expected_values_checks_passed": true,
+  "nonzero_row_isolated_diagnostic": {
+    "row_index": 5,
+    "reset_states": true,
+    "ordered_sequence_scan": false,
+    "input_nonzero_count": 12,
+    "h_norm": 0.3872087025617374,
+    "passed": true
+  },
+  "sequence_scan_executed": false,
+  "classifier_executed": false,
+  "loss_computed": false,
+  "backward_pass_executed": false,
+  "parameters_updated": false,
+  "model_trained": false,
+  "python": "3.13.15",
+  "numpy": "2.5.3",
+  "actual_device": "CPU",
+  "dtype": "float64",
+  "cpu_identifier": "AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",
+  "execution": "isolated snippets via project Python interpreter; cache loaded with np.load",
+  "user_python_file_modified_by_assistant": false
+}

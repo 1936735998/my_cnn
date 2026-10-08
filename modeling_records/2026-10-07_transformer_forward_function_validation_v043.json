@@ -1,0 +1,146 @@
+{
+  "date": "2026-10-07",
+  "timezone": "Asia/Shanghai",
+  "version": "v043",
+  "recorded_at": "2026-10-07T17:23:21.123678+08:00",
+  "scope": "GPU完整前向函数返回更新后loss/probabilities/cache；CPU双精度参考；另一张训练图函数复用核验",
+  "python": "3.13.15",
+  "executable": "F:\\PythonProjects\\deep_learning\\.venv\\Scripts\\python.exe",
+  "numpy": "2.5.3",
+  "cupy": "14.2.0",
+  "gpu_name": "NVIDIA GeForce RTX 5060",
+  "selected_device": 0,
+  "cupy_visible_gpu_count": 1,
+  "user_source_path": "F:\\PythonProjects\\deep_learning\\transformer_mnist.py",
+  "user_source_sha256": "a264471540c2758482798b896e9b7f52938f33a577a9424cb2c0bfad4cd091c2",
+  "user_source_unchanged": true,
+  "data_path": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "data_sha256": "731c5ac602752760c8e48fbffcf8c3b850d9dc2a2aedcf2cc48468fc17b673d1",
+  "chat_fragment": "# ==================================================\n# 训练准备：整理完整前向函数\n# ==================================================\n\ndef forward_one_image(X, target, params, position_encoding, num_heads, ln_eps):\n    seq_len = X.shape[0]\n    d_model = params[\"W_in\"].shape[1]\n    head_dim = d_model // num_heads\n\n    # 1. 输入映射与位置编码\n    embedding = cp.dot(X, params[\"W_in\"]) + params[\"b_in\"]\n    encoder_input = embedding + position_encoding\n\n    # 2. Q、K、V 投影与拆头\n    Q = cp.dot(encoder_input, params[\"W_Q\"]) + params[\"b_Q\"]\n    K = cp.dot(encoder_input, params[\"W_K\"]) + params[\"b_K\"]\n    V = cp.dot(encoder_input, params[\"W_V\"]) + params[\"b_V\"]\n\n    Q_heads = Q.reshape(seq_len, num_heads, head_dim).transpose(1, 0, 2)\n    K_heads = K.reshape(seq_len, num_heads, head_dim).transpose(1, 0, 2)\n    V_heads = V.reshape(seq_len, num_heads, head_dim).transpose(1, 0, 2)\n\n    # 3. 缩放分数、softmax 与加权汇总\n    attention_scores = cp.matmul(Q_heads, K_heads.transpose(0, 2, 1))\n    attention_scores = attention_scores / cp.sqrt(cp.float32(head_dim))\n    scores_shifted = attention_scores - cp.max(\n        attention_scores, axis=-1, keepdims=True\n    )\n    exp_scores = cp.exp(scores_shifted)\n    attention_weights = exp_scores / cp.sum(exp_scores, axis=-1, keepdims=True)\n\n    head_output = cp.matmul(attention_weights, V_heads)\n    concatenated_heads = head_output.transpose(1, 0, 2).reshape(seq_len, d_model)\n    attention_output = cp.dot(concatenated_heads, params[\"W_O\"]) + params[\"b_O\"]\n\n    # 4. 注意力残差与第一次 LayerNorm\n    attention_residual = encoder_input + attention_output\n    mean_attn = cp.mean(attention_residual, axis=-1, keepdims=True)\n    centered_attn = attention_residual - mean_attn\n    var_attn = cp.mean(centered_attn ** 2, axis=-1, keepdims=True)\n    inv_std_attn = cp.float32(1.0) / cp.sqrt(var_attn + ln_eps)\n    normalized_attn = centered_attn * inv_std_attn\n    attention_norm = normalized_attn * params[\"gamma_attn\"] + params[\"beta_attn\"]\n\n    # 5. 前馈网络、残差与第二次 LayerNorm\n    ff_hidden_linear = cp.dot(attention_norm, params[\"W_ff1\"]) + params[\"b_ff1\"]\n    ff_hidden = cp.maximum(ff_hidden_linear, cp.float32(0.0))\n    ff_output = cp.dot(ff_hidden, params[\"W_ff2\"]) + params[\"b_ff2\"]\n    ff_residual = attention_norm + ff_output\n\n    mean_ffn = cp.mean(ff_residual, axis=-1, keepdims=True)\n    centered_ffn = ff_residual - mean_ffn\n    var_ffn = cp.mean(centered_ffn ** 2, axis=-1, keepdims=True)\n    inv_std_ffn = cp.float32(1.0) / cp.sqrt(var_ffn + ln_eps)\n    normalized_ffn = centered_ffn * inv_std_ffn\n    encoder_output = normalized_ffn * params[\"gamma_ffn\"] + params[\"beta_ffn\"]\n\n    # 6. 均值池化、分类概率与交叉熵\n    image_features = cp.mean(encoder_output, axis=0)\n    logits = cp.dot(image_features, params[\"W_cls\"]) + params[\"b_cls\"]\n    shifted_logits = logits - cp.max(logits)\n    exp_logits = cp.exp(shifted_logits)\n    probabilities = exp_logits / cp.sum(exp_logits)\n    loss = cp.log(cp.sum(exp_logits)) - shifted_logits[target]\n\n    # 留下这一轮反向传播需要的中间结果\n    cache = {\n        \"X\": X, \"encoder_input\": encoder_input,\n        \"Q_heads\": Q_heads, \"K_heads\": K_heads, \"V_heads\": V_heads,\n        \"attention_weights\": attention_weights,\n        \"concatenated_heads\": concatenated_heads,\n        \"inv_std_attn\": inv_std_attn, \"normalized_attn\": normalized_attn,\n        \"attention_norm\": attention_norm,\n        \"ff_hidden_linear\": ff_hidden_linear, \"ff_hidden\": ff_hidden,\n        \"inv_std_ffn\": inv_std_ffn, \"normalized_ffn\": normalized_ffn,\n        \"encoder_output\": encoder_output, \"image_features\": image_features,\n        \"probabilities\": probabilities, \"target\": target,\n        \"num_heads\": num_heads, \"head_dim\": head_dim,\n    }\n    return loss, probabilities, cache\n\n\n# params 已经更新过；这里读取更新后的参数重新前向\nloss_after_update, probabilities_after_update, cache_after_update = forward_one_image(\n    X, target, params, position_encoding, num_heads, ln_eps\n)\n\nprint(\"更新前的损失:\", float(loss_before_update))\nprint(\"更新后的损失:\", float(loss_after_update))\nprint(\"损失减少量:\", float(loss_before_update - loss_after_update))\nprint(\"真实标签:\", target)\nprint(\"更新后的预测:\", int(cp.argmax(probabilities_after_update)))\nprint(\"probabilities_after_update:\", probabilities_after_update.shape)\nprint(\"loss_after_update 的实际设备:\", loss_after_update.device)\nprint(\"新缓存 encoder_input 的实际设备:\", cache_after_update[\"encoder_input\"].device)\n",
+  "chat_fragment_sha256": "110d3a7cc0b2462c85ce68c3314393980049122dbd3882a90bc33f5b45161b0b",
+  "cpu_reference_source": "\"\"\"只用于数值核验的 NumPy float64 前向参考；无自动求导、无训练、无文件副作用。\"\"\"\nimport numpy as np\n\nPARAM_NAMES = [\"W_in\", \"b_in\", \"W_Q\", \"b_Q\", \"W_K\", \"b_K\", \"W_V\", \"b_V\", \"W_O\", \"b_O\",\n               \"gamma_attn\", \"beta_attn\", \"W_ff1\", \"b_ff1\", \"W_ff2\", \"b_ff2\", \"gamma_ffn\", \"beta_ffn\",\n               \"W_cls\", \"b_cls\"]\n\ndef layernorm(values, gamma, beta, epsilon):\n    centered = values - np.mean(values, axis=-1, keepdims=True)\n    variance = np.mean(centered * centered, axis=-1, keepdims=True)\n    return centered / np.sqrt(variance + epsilon) * gamma + beta\n\ndef encoder_loss(encoder_input, parameters, epsilon, target, num_heads=4):\n    \"\"\"E→完整编码器→池化→分类CE，返回loss和ReLU前值以识别折点。\"\"\"\n    width = encoder_input.shape[-1]\n    assert width % num_heads == 0\n    head_width = width // num_heads\n    projections = []\n    for name in [\"Q\", \"K\", \"V\"]:\n        projected = encoder_input @ parameters[f\"W_{name}\"] + parameters[f\"b_{name}\"]\n        # 显式切块，不使用 GPU 前向的 reshape/transpose 布局代码。\n        heads = np.stack([projected[:, h * head_width:(h + 1) * head_width]\n                          for h in range(num_heads)], axis=0)\n        projections.append(heads)\n    queries, keys, values = projections\n    scores = np.einsum(\"hik,hjk->hij\", queries, keys) / np.sqrt(np.float64(head_width))\n    log_normalizer = np.logaddexp.reduce(scores, axis=-1, keepdims=True)\n    attention_weights = np.exp(scores - log_normalizer)\n    head_outputs = np.einsum(\"hij,hjk->hik\", attention_weights, values)\n    concatenated = np.concatenate([head_outputs[h] for h in range(num_heads)], axis=-1)\n    attention_output = concatenated @ parameters[\"W_O\"] + parameters[\"b_O\"]\n    attention_norm = layernorm(encoder_input + attention_output,\n                               parameters[\"gamma_attn\"], parameters[\"beta_attn\"], epsilon)\n    hidden_linear = attention_norm @ parameters[\"W_ff1\"] + parameters[\"b_ff1\"]\n    hidden = np.maximum(hidden_linear, 0.0)\n    ff_output = hidden @ parameters[\"W_ff2\"] + parameters[\"b_ff2\"]\n    encoder_output = layernorm(attention_norm + ff_output,\n                               parameters[\"gamma_ffn\"], parameters[\"beta_ffn\"], epsilon)\n    image_features = np.mean(encoder_output, axis=0)\n    logits = image_features @ parameters[\"W_cls\"] + parameters[\"b_cls\"]\n    loss = float(np.logaddexp.reduce(logits) - logits[target])\n    return loss, hidden_linear\n\ndef full_loss(pixels, parameters, position_encoding, epsilon, target, num_heads=4):\n    \"\"\"像素→输入仿射→固定位置相加→encoder_loss；供后续输入映射核验。\"\"\"\n    embedding = pixels @ parameters[\"W_in\"] + parameters[\"b_in\"]\n    return encoder_loss(embedding + position_encoding, parameters, epsilon, target, num_heads)\n",
+  "cpu_reference_source_sha256": "ca6dd807884196dcaedfd5550f297daa67b95b94d57ec634d2a92e38e1770eea",
+  "target": 5,
+  "loss_before_update": 1.9714317321777344,
+  "loss_after_update": 1.729211688041687,
+  "loss_decrease": 0.24222004413604736,
+  "prediction_after_update": 5,
+  "probabilities_after_update": [
+    0.050218451768159866,
+    0.08880341053009033,
+    0.0923851802945137,
+    0.0800987035036087,
+    0.11497767269611359,
+    0.17742422223091125,
+    0.13320419192314148,
+    0.05995102971792221,
+    0.10566951334476471,
+    0.09726769477128983
+  ],
+  "new_loss_shape": [],
+  "new_probabilities_shape": [
+    10
+  ],
+  "new_loss_device": "<CUDA Device 0>",
+  "new_loss_dtype": "float32",
+  "cache_array_shapes": {
+    "X": [
+      28,
+      28
+    ],
+    "encoder_input": [
+      28,
+      32
+    ],
+    "Q_heads": [
+      4,
+      28,
+      8
+    ],
+    "K_heads": [
+      4,
+      28,
+      8
+    ],
+    "V_heads": [
+      4,
+      28,
+      8
+    ],
+    "attention_weights": [
+      4,
+      28,
+      28
+    ],
+    "concatenated_heads": [
+      28,
+      32
+    ],
+    "inv_std_attn": [
+      28,
+      1
+    ],
+    "normalized_attn": [
+      28,
+      32
+    ],
+    "attention_norm": [
+      28,
+      32
+    ],
+    "ff_hidden_linear": [
+      28,
+      64
+    ],
+    "ff_hidden": [
+      28,
+      64
+    ],
+    "inv_std_ffn": [
+      28,
+      1
+    ],
+    "normalized_ffn": [
+      28,
+      32
+    ],
+    "encoder_output": [
+      28,
+      32
+    ],
+    "image_features": [
+      32
+    ],
+    "probabilities": [
+      10
+    ]
+  },
+  "all_cache_arrays_finite_float32_gpu0": true,
+  "cache_target": 5,
+  "cache_num_heads": 4,
+  "cache_head_dim": 8,
+  "parameters_old_gradients_and_old_forward_cache_unchanged": true,
+  "cpu_float64_loss": 1.7292117148184176,
+  "cpu_gpu_loss_abs_error": 2.677673061057817e-08,
+  "relu_preactivation_cpu_gpu_max_abs_error": 3.0441540377346143e-07,
+  "cpu_reference_rtol": 2e-06,
+  "cpu_reference_atol": 2e-06,
+  "previous_v042_result_consistent": true,
+  "other_training_sample": {
+    "index": 1,
+    "target": 0,
+    "loss_gpu": 2.921767234802246,
+    "loss_cpu_float64": 2.9217674374051383,
+    "cpu_gpu_abs_error": 2.0260289224083294e-07
+  },
+  "new_trainable_parameter_count": 0,
+  "current_trainable_parameter_count": 9802,
+  "previous_single_sample_update_count_replayed": 1,
+  "new_parameter_updates_executed_by_fragment": 0,
+  "new_cache_used_for_backward": false,
+  "dataset_training_loop_executed": false,
+  "test_dataset_evaluated": false,
+  "trained_checkpoint_saved": false,
+  "preparation_stdout": "Python: 3.13.15\nNumPy: 2.5.3\nCuPy: 14.2.0\nGPU 数量: 1\nGPU 型号: NVIDIA GeForce RTX 5060\nx_train: (5000, 28, 28)\ny_train: (5000,)\nx_test: (1000, 28, 28)\ny_test: (1000,)\n一张图片: (28, 28)\n一行像素: (28,)\n像素范围: 0.0 1.0\n第一张图片的标签: 5\n训练输入的实际设备: <CUDA Device 0>\n测试输入的实际设备: <CUDA Device 0>\nW_in: (28, 32)\nb_in: (32,)\nX: (28, 28)\nembedding: (28, 32)\n一行映射后的特征: (32,)\nW_in 的实际设备: <CUDA Device 0>\nembedding 的实际设备: <CUDA Device 0>\nposition_encoding: (28, 32)\nencoder_input: (28, 32)\n第 0 行位置编码的前 6 个值: [0. 1. 0. 1. 0. 1.]\n第 1 行位置编码的前 6 个值: [0.841471   0.5403023  0.53316844 0.84600914 0.3109836  0.95041525]\nencoder_input 的实际设备: <CUDA Device 0>\nW_Q: (32, 32)\nW_K: (32, 32)\nW_V: (32, 32)\nQ: (28, 32)\nK: (28, 32)\nV: (28, 32)\nQ 的实际设备: <CUDA Device 0>\nK 的实际设备: <CUDA Device 0>\nV 的实际设备: <CUDA Device 0>\n每个头的特征数: 8\nQ_heads: (4, 28, 8)\nK_heads: (4, 28, 8)\nV_heads: (4, 28, 8)\n第 0 个头的 Q: (28, 8)\nQ_heads 的实际设备: <CUDA Device 0>\nK_transposed: (4, 8, 28)\nattention_scores: (4, 28, 28)\n第 0 个头的分数矩阵: (28, 28)\nattention_scores 的实际设备: <CUDA Device 0>\nattention_weights: (4, 28, 28)\n每行权重和的形状: (4, 28)\n第 0 个头前 5 行的权重和: [1. 1. 1. 1. 1.]\nattention_weights 的实际设备: <CUDA Device 0>\nhead_output: (4, 28, 8)\n第 0 个头的输出: (28, 8)\nhead_output 的实际设备: <CUDA Device 0>\nhead_output_by_position: (28, 4, 8)\nconcatenated_heads: (28, 32)\n一行拼接后的特征: (32,)\nconcatenated_heads 的实际设备: <CUDA Device 0>\nW_O: (32, 32)\nb_O: (32,)\nattention_output: (28, 32)\nW_O 的实际设备: <CUDA Device 0>\nattention_output 的实际设备: <CUDA Device 0>\nattention_residual: (28, 32)\n一行残差相加后的特征: (32,)\nattention_residual 的实际设备: <CUDA Device 0>\ngamma_attn: (32,)\nbeta_attn: (32,)\nmean_attn: (28, 1)\nvar_attn: (28, 1)\nattention_norm: (28, 32)\n第 0 行输出的均值: -3.725290298461914e-08\n第 0 行输出的方差: 0.9999621510505676\nattention_norm 的实际设备: <CUDA Device 0>\nW_ff1: (32, 64)\nb_ff1: (64,)\nff_hidden_linear: (28, 64)\nff_hidden: (28, 64)\nff_hidden 的实际设备: <CUDA Device 0>\nW_ff2: (64, 32)\nb_ff2: (32,)\nff_output: (28, 32)\nff_output 的实际设备: <CUDA Device 0>\nff_residual: (28, 32)\n一行残差相加后的特征: (32,)\nff_residual 的实际设备: <CUDA Device 0>\ngamma_ffn: (32,)\nbeta_ffn: (32,)\nmean_ffn: (28, 1)\nvar_ffn: (28, 1)\nencoder_output: (28, 32)\n第 0 行输出的均值: 1.4901161193847656e-08\n第 0 行输出的方差: 0.9999919533729553\nencoder_output 的实际设备: <CUDA Device 0>\nencoder_output: (28, 32)\nimage_features: (32,)\nimage_features 的实际设备: <CUDA Device 0>\nW_cls: (32, 10)\nb_cls: (10,)\nlogits: (10,)\nlogits 的实际设备: <CUDA Device 0>\nprobabilities: (10,)\n10 个分类概率: [0.05128625 0.0902641  0.09589957 0.08333775 0.12101302 0.13925733\n 0.14542629 0.06127679 0.10997739 0.10226148]\n概率之和: 1.0\nprobabilities 的实际设备: <CUDA Device 0>\n真实标签: 5\n当前预测: 6\n真实类别的概率: 0.13925732672214508\n交叉熵损失: 1.9714317321777344\nloss 的形状: ()\nloss 的实际设备: <CUDA Device 0>\nd_logits: (10,)\n10 个分数的梯度: [ 0.05128625  0.0902641   0.09589957  0.08333775  0.12101302 -0.8607427\n  0.14542629  0.06127679  0.10997739  0.10226148]\n梯度之和: -2.9802322387695312e-08\nd_logits 的实际设备: <CUDA Device 0>\ndW_cls: (32, 10)\ndb_cls: (10,)\nd_image_features: (32,)\ndW_cls 的实际设备: <CUDA Device 0>\ndb_cls 的实际设备: <CUDA Device 0>\nd_image_features 的实际设备: <CUDA Device 0>\nd_encoder_output: (28, 32)\n第 0 行的梯度形状: (32,)\n首尾两行梯度是否相同: True\n各行梯度之和与上游梯度的最大差值: 7.450580596923828e-09\nd_encoder_output 的实际设备: <CUDA Device 0>\ndgamma_ffn: (32,)\ndbeta_ffn: (32,)\nd_normalized_ffn: (28, 32)\nmean_d_normalized_ffn: (28, 1)\nmean_d_normalized_times_x_ffn: (28, 1)\nd_ff_residual: (28, 32)\ndgamma_ffn 的实际设备: <CUDA Device 0>\ndbeta_ffn 的实际设备: <CUDA Device 0>\nd_ff_residual 的实际设备: <CUDA Device 0>\nd_attention_norm_skip: (28, 32)\nd_ff_output: (28, 32)\nd_attention_norm_skip 的实际设备: <CUDA Device 0>\nd_ff_output 的实际设备: <CUDA Device 0>\ndW_ff2: (64, 32)\ndb_ff2: (32,)\nd_ff_hidden: (28, 64)\ndW_ff2 的实际设备: <CUDA Device 0>\ndb_ff2 的实际设备: <CUDA Device 0>\nd_ff_hidden 的实际设备: <CUDA Device 0>\nrelu_mask: (28, 64)\nd_ff_hidden_linear: (28, 64)\n负数或零处的梯度是否全为 0: True\n正数处的梯度是否保持不变: True\nd_ff_hidden_linear 的实际设备: <CUDA Device 0>\ndW_ff1: (32, 64)\ndb_ff1: (64,)\nd_attention_norm_from_ffn: (28, 32)\ndW_ff1 的实际设备: <CUDA Device 0>\ndb_ff1 的实际设备: <CUDA Device 0>\nd_attention_norm_from_ffn 的实际设备: <CUDA Device 0>\nd_attention_norm_skip: (28, 32)\nd_attention_norm_from_ffn: (28, 32)\nd_attention_norm: (28, 32)\nd_attention_norm 的实际设备: <CUDA Device 0>\ndgamma_attn: (32,)\ndbeta_attn: (32,)\nd_normalized_attn: (28, 32)\nmean_d_normalized_attn: (28, 1)\nmean_d_normalized_times_x_attn: (28, 1)\nd_attention_residual: (28, 32)\ndgamma_attn 的实际设备: <CUDA Device 0>\ndbeta_attn 的实际设备: <CUDA Device 0>\nd_attention_residual 的实际设备: <CUDA Device 0>\nd_encoder_input_skip: (28, 32)\nd_attention_output: (28, 32)\nd_encoder_input_skip 的实际设备: <CUDA Device 0>\nd_attention_output 的实际设备: <CUDA Device 0>\ndW_O: (32, 32)\ndb_O: (32,)\nd_concatenated_heads: (28, 32)\ndW_O 的实际设备: <CUDA Device 0>\ndb_O 的实际设备: <CUDA Device 0>\nd_concatenated_heads 的实际设备: <CUDA Device 0>\nd_head_output_by_position: (28, 4, 8)\nd_head_output: (4, 28, 8)\n第 0 个头的输出梯度: (28, 8)\nd_head_output 的实际设备: <CUDA Device 0>\nd_attention_weights: (4, 28, 28)\nd_V_heads: (4, 28, 8)\nd_attention_weights 的实际设备: <CUDA Device 0>\nd_V_heads 的实际设备: <CUDA Device 0>\nweighted_gradient_sum: (4, 28, 1)\nd_attention_scores: (4, 28, 28)\n第 0 个头前 5 行的梯度和: [-1.7462298e-10  5.8207661e-10 -3.4924597e-10  4.6566129e-10\n -4.0745363e-10]\nd_attention_scores 的实际设备: <CUDA Device 0>\nattention_scale: 2.8284270763397217\nd_qk_product: (4, 28, 28)\nd_Q_heads: (4, 28, 8)\nd_K_heads: (4, 28, 8)\nd_Q_heads 的实际设备: <CUDA Device 0>\nd_K_heads 的实际设备: <CUDA Device 0>\nd_Q: (28, 32)\nd_K: (28, 32)\nd_V: (28, 32)\nd_Q 的实际设备: <CUDA Device 0>\nd_K 的实际设备: <CUDA Device 0>\nd_V 的实际设备: <CUDA Device 0>\ndW_Q: (32, 32)\ndb_Q: (32,)\nd_encoder_input_from_Q: (28, 32)\ndW_K: (32, 32)\ndb_K: (32,)\nd_encoder_input_from_K: (28, 32)\ndW_V: (32, 32)\ndb_V: (32,)\nd_encoder_input_from_V: (28, 32)\nQ 路径的实际设备: <CUDA Device 0>\nK 路径的实际设备: <CUDA Device 0>\nV 路径的实际设备: <CUDA Device 0>\nd_encoder_input: (28, 32)\n一行输入特征的梯度: (32,)\nd_encoder_input 的实际设备: <CUDA Device 0>\nd_embedding: (28, 32)\n一行映射特征的梯度: (32,)\nd_embedding 的实际设备: <CUDA Device 0>\ndW_in: (28, 32)\ndb_in: (32,)\nd_X: (28, 28)\ndW_in 的实际设备: <CUDA Device 0>\ndb_in 的实际设备: <CUDA Device 0>\nd_X 的实际设备: <CUDA Device 0>\n学习率: 0.01\n已更新的参数数组数量: 20\n参数标量总数: 9802\n更新前的损失: 1.9714317321777344\nW_in 的实际设备: <CUDA Device 0>\nW_cls 的实际设备: <CUDA Device 0>\n",
+  "step_stdout": "更新前的损失: 1.9714317321777344\n更新后的损失: 1.729211688041687\n损失减少量: 0.24222004413604736\n真实标签: 5\n更新后的预测: 5\nprobabilities_after_update: (10,)\nloss_after_update 的实际设备: <CUDA Device 0>\n新缓存 encoder_input 的实际设备: <CUDA Device 0>\n"
+}

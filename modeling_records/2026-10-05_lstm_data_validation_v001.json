@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-05",
+  "version": "v001",
+  "task": "numpy_lstm_mnist_from_scratch",
+  "stage": "sequence_data_preparation_only",
+  "model_trained": false,
+  "parameters_initialized": false,
+  "forward_pass_executed": false,
+  "data_source": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "original_shapes": {
+    "x_train": [
+      60000,
+      28,
+      28
+    ],
+    "y_train": [
+      60000
+    ],
+    "x_test": [
+      10000,
+      28,
+      28
+    ],
+    "y_test": [
+      10000
+    ]
+  },
+  "prepared_shapes": {
+    "x_train": [
+      5000,
+      28,
+      28
+    ],
+    "y_train": [
+      5000
+    ],
+    "x_test": [
+      1000,
+      28,
+      28
+    ],
+    "y_test": [
+      1000
+    ]
+  },
+  "sequence_shape": [
+    28,
+    28
+  ],
+  "time_steps": 28,
+  "features_per_step": 28,
+  "first_step_shape": [
+    28
+  ],
+  "training_pixel_range": [
+    0,
+    1
+  ],
+  "first_training_label": 5,
+  "all_inputs_finite": true,
+  "python": "3.13.15",
+  "numpy": "2.5.3",
+  "actual_device": "CPU (NumPy arrays)",
+  "user_python_file_modified_by_assistant": false,
+  "execution": "isolated data validation through project interpreter, reading the same local Keras cache",
+  "limitations": "Rows provide a chosen spatial sequence representation; MNIST is not a natural time-series dataset. LSTM gates, parameters, gradients, training and evaluation are not implemented or verified."
+}

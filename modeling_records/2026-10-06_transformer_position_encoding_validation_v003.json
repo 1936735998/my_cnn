@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-06",
+  "timezone": "Asia/Shanghai",
+  "version": "v003",
+  "recorded_at": "2026-10-06T21:03:45.562260+08:00",
+  "scope": "固定正弦位置编码与输入相加；未进行注意力、反向传播或训练",
+  "python": "3.13.15",
+  "executable": "F:\\PythonProjects\\deep_learning\\.venv\\Scripts\\python.exe",
+  "numpy": "2.5.3",
+  "cupy": "14.2.0",
+  "selected_device": 0,
+  "gpu_name": "NVIDIA GeForce RTX 5060",
+  "cupy_visible_gpu_count": 1,
+  "user_source_path": "F:\\PythonProjects\\deep_learning\\transformer_mnist.py",
+  "user_source_sha256": "e91ed226c7a1653c941d5cd7e7d9c7bc5245400010f434e55b353ad9155bdaee",
+  "user_source_unchanged": true,
+  "data_path": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "data_sha256": "731c5ac602752760c8e48fbffcf8c3b850d9dc2a2aedcf2cc48468fc17b673d1",
+  "chat_fragment": "# ==================================================\n# 正弦位置编码\n# ==================================================\n\nseq_len = embedding.shape[0]\n\n# 28 个行位置，编号为 0～27\nposition = cp.arange(seq_len, dtype=cp.float32).reshape(seq_len, 1)\n\n# 选择第 0、2、4、...、30 个特征位置\ndimension_index = cp.arange(0, d_model, 2, dtype=cp.float32)\n\nangles = position / (10000 ** (dimension_index / d_model))\n\nposition_encoding = cp.zeros((seq_len, d_model), dtype=cp.float32)\n\nposition_encoding[:, 0::2] = cp.sin(angles)\nposition_encoding[:, 1::2] = cp.cos(angles)\n\n\n# ==================================================\n# 输入特征 + 位置信息\n# ==================================================\n\nencoder_input = embedding + position_encoding\n\nprint(\"position_encoding:\", position_encoding.shape)\nprint(\"encoder_input:\", encoder_input.shape)\nprint(\"第 0 行位置编码的前 6 个值:\", position_encoding[0, :6])\nprint(\"第 1 行位置编码的前 6 个值:\", position_encoding[1, :6])\nprint(\"encoder_input 的实际设备:\", encoder_input.device)\n",
+  "chat_fragment_sha256": "cceee9eaf4de739dc501031da4fb1ba18c06b41dcc3a4ad64106066ea438fce4",
+  "config": {
+    "seq_len": 28,
+    "d_model": 32,
+    "base": 10000,
+    "position_start": 0
+  },
+  "shapes": {
+    "position": [
+      28,
+      1
+    ],
+    "dimension_index": [
+      16
+    ],
+    "angles": [
+      28,
+      16
+    ],
+    "position_encoding": [
+      28,
+      32
+    ],
+    "encoder_input": [
+      28,
+      32
+    ]
+  },
+  "devices": {
+    "position_encoding": "<CUDA Device 0>",
+    "encoder_input": "<CUDA Device 0>"
+  },
+  "all_arrays_float32_and_finite": true,
+  "fixed_position_encoding": true,
+  "new_trainable_parameter_count": 0,
+  "existing_input_parameter_count": 928,
+  "cpu_float64_reference_match": true,
+  "cpu_reference_rtol": 1e-05,
+  "cpu_reference_atol": 2e-06,
+  "cpu_reference_max_abs_error": 5.532527247165131e-07,
+  "sin_cos_pair_norm_max_abs_error": 1.1920928955078125e-07,
+  "distinct_position_rows": 28,
+  "position_row_0_first_6": [
+    0.0,
+    1.0,
+    0.0,
+    1.0,
+    0.0,
+    1.0
+  ],
+  "position_row_1_first_6": [
+    0.8414710164070129,
+    0.5403022766113281,
+    0.5331684350967407,
+    0.8460091352462769,
+    0.3109835982322693,
+    0.9504152536392212
+  ],
+  "addition_reference_match": true,
+  "embedding_and_parameters_unchanged": true,
+  "attention_executed": false,
+  "gradient_computation_executed": false,
+  "parameter_updates": 0,
+  "transformer_training_executed": false,
+  "stdout": "Python: 3.13.15\nNumPy: 2.5.3\nCuPy: 14.2.0\nGPU 数量: 1\nGPU 型号: NVIDIA GeForce RTX 5060\nx_train: (5000, 28, 28)\ny_train: (5000,)\nx_test: (1000, 28, 28)\ny_test: (1000,)\n一张图片: (28, 28)\n一行像素: (28,)\n像素范围: 0.0 1.0\n第一张图片的标签: 5\n训练输入的实际设备: <CUDA Device 0>\n测试输入的实际设备: <CUDA Device 0>\nW_in: (28, 32)\nb_in: (32,)\nX: (28, 28)\nembedding: (28, 32)\n一行映射后的特征: (32,)\nW_in 的实际设备: <CUDA Device 0>\nembedding 的实际设备: <CUDA Device 0>\nposition_encoding: (28, 32)\nencoder_input: (28, 32)\n第 0 行位置编码的前 6 个值: [0. 1. 0. 1. 0. 1.]\n第 1 行位置编码的前 6 个值: [0.841471   0.5403023  0.53316844 0.84600914 0.3109836  0.95041525]\nencoder_input 的实际设备: <CUDA Device 0>\n"
+}

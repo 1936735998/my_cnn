@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-07",
+  "timezone": "Asia/Shanghai",
+  "version": "v007",
+  "recorded_at": "2026-10-07T08:41:34.335335+08:00",
+  "scope": "稳定softmax局部前向GPU验证；未加权V、计算梯度或训练",
+  "python": "3.13.15",
+  "executable": "F:\\PythonProjects\\deep_learning\\.venv\\Scripts\\python.exe",
+  "numpy": "2.5.3",
+  "cupy": "14.2.0",
+  "gpu_name": "NVIDIA GeForce RTX 5060",
+  "selected_device": 0,
+  "cupy_visible_gpu_count": 1,
+  "user_source_path": "F:\\PythonProjects\\deep_learning\\transformer_mnist.py",
+  "user_source_sha256": "7a3f40e63dfe05fb2f6315dbe6efa6dec38720f032e328e9ce916c919c22dcdc",
+  "user_source_unchanged": true,
+  "data_path": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "data_sha256": "731c5ac602752760c8e48fbffcf8c3b850d9dc2a2aedcf2cc48468fc17b673d1",
+  "chat_fragment": "# ==================================================\n# 稳定 softmax：把匹配分数转换成注意力权重\n# ==================================================\n\n# 每一行减去该行的最大分数，避免 exp 溢出\nscores_shifted = attention_scores - cp.max(\n    attention_scores, axis=-1, keepdims=True\n)\n\nexp_scores = cp.exp(scores_shifted)\n\n# 对每个查询位置对应的 28 个键位置归一化\nattention_weights = exp_scores / cp.sum(\n    exp_scores, axis=-1, keepdims=True\n)\n\nweight_sums = cp.sum(attention_weights, axis=-1)\n\nprint(\"attention_weights:\", attention_weights.shape)\nprint(\"每行权重和的形状:\", weight_sums.shape)\nprint(\"第 0 个头前 5 行的权重和:\", weight_sums[0, :5])\nprint(\"attention_weights 的实际设备:\", attention_weights.device)\n",
+  "chat_fragment_sha256": "b9919c0085000986f72ee4ac9457d8f4cd405c587444dacc48dc074a225ebff6",
+  "config": {
+    "seq_len": 28,
+    "d_model": 32,
+    "num_heads": 4,
+    "head_dim": 8,
+    "normalization_axis": -1,
+    "keepdims": true
+  },
+  "shapes": {
+    "attention_scores": [
+      4,
+      28,
+      28
+    ],
+    "attention_weights": [
+      4,
+      28,
+      28
+    ],
+    "weight_sums": [
+      4,
+      28
+    ]
+  },
+  "attention_weights_device": "<CUDA Device 0>",
+  "attention_weights_dtype": "float32",
+  "all_weights_finite": true,
+  "all_weights_in_closed_unit_interval": true,
+  "row_sums_close_to_one_atol": 1e-06,
+  "row_sum_max_abs_error": 1.1920928955078125e-07,
+  "row_sums_first_head_first_five": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "cpu_float64_reference_match": true,
+  "cpu_reference_max_abs_error": 6.856624115703092e-09,
+  "cpu_reference_rtol": 1e-05,
+  "cpu_reference_atol": 1e-07,
+  "attention_scores_unchanged": true,
+  "weights_min": 0.02456626296043396,
+  "weights_max": 0.05063575878739357,
+  "stress_test_input": [
+    [
+      [
+        10000.0,
+        9999.0,
+        9998.0
+      ],
+      [
+        -10000.0,
+        -10001.0,
+        -10002.0
+      ]
+    ]
+  ],
+  "stress_test_weights": [
+    [
+      [
+        0.6652408838272095,
+        0.2447284758090973,
+        0.09003056585788727
+      ],
+      [
+        0.6652408838272095,
+        0.2447284758090973,
+        0.09003056585788727
+      ]
+    ]
+  ],
+  "stress_test_passed": true,
+  "new_trainable_parameter_count": 0,
+  "V_aggregation_executed": false,
+  "gradient_computation_executed": false,
+  "parameter_updates": 0,
+  "transformer_training_executed": false,
+  "preparation_stdout": "Python: 3.13.15\nNumPy: 2.5.3\nCuPy: 14.2.0\nGPU 数量: 1\nGPU 型号: NVIDIA GeForce RTX 5060\nx_train: (5000, 28, 28)\ny_train: (5000,)\nx_test: (1000, 28, 28)\ny_test: (1000,)\n一张图片: (28, 28)\n一行像素: (28,)\n像素范围: 0.0 1.0\n第一张图片的标签: 5\n训练输入的实际设备: <CUDA Device 0>\n测试输入的实际设备: <CUDA Device 0>\nW_in: (28, 32)\nb_in: (32,)\nX: (28, 28)\nembedding: (28, 32)\n一行映射后的特征: (32,)\nW_in 的实际设备: <CUDA Device 0>\nembedding 的实际设备: <CUDA Device 0>\nposition_encoding: (28, 32)\nencoder_input: (28, 32)\n第 0 行位置编码的前 6 个值: [0. 1. 0. 1. 0. 1.]\n第 1 行位置编码的前 6 个值: [0.841471   0.5403023  0.53316844 0.84600914 0.3109836  0.95041525]\nencoder_input 的实际设备: <CUDA Device 0>\nW_Q: (32, 32)\nW_K: (32, 32)\nW_V: (32, 32)\nQ: (28, 32)\nK: (28, 32)\nV: (28, 32)\nQ 的实际设备: <CUDA Device 0>\nK 的实际设备: <CUDA Device 0>\nV 的实际设备: <CUDA Device 0>\n每个头的特征数: 8\nQ_heads: (4, 28, 8)\nK_heads: (4, 28, 8)\nV_heads: (4, 28, 8)\n第 0 个头的 Q: (28, 8)\nQ_heads 的实际设备: <CUDA Device 0>\nK_transposed: (4, 8, 28)\nattention_scores: (4, 28, 28)\n第 0 个头的分数矩阵: (28, 28)\nattention_scores 的实际设备: <CUDA Device 0>\n",
+  "step_stdout": "attention_weights: (4, 28, 28)\n每行权重和的形状: (4, 28)\n第 0 个头前 5 行的权重和: [1. 1. 1. 1. 1.]\nattention_weights 的实际设备: <CUDA Device 0>\n"
+}

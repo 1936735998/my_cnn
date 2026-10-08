@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-07",
+  "timezone": "Asia/Shanghai",
+  "version": "v012",
+  "recorded_at": "2026-10-07T09:30:13.325499+08:00",
+  "scope": "手写LayerNorm局部前向GPU验证；未前馈、梯度或训练",
+  "python": "3.13.15",
+  "executable": "F:\\PythonProjects\\deep_learning\\.venv\\Scripts\\python.exe",
+  "numpy": "2.5.3",
+  "cupy": "14.2.0",
+  "gpu_name": "NVIDIA GeForce RTX 5060",
+  "selected_device": 0,
+  "cupy_visible_gpu_count": 1,
+  "user_source_path": "F:\\PythonProjects\\deep_learning\\transformer_mnist.py",
+  "user_source_sha256": "139397175fdde4bc2c425858c4962606124232d6b229ecfd0a2653262c21400b",
+  "user_source_unchanged": true,
+  "data_path": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "data_sha256": "731c5ac602752760c8e48fbffcf8c3b850d9dc2a2aedcf2cc48468fc17b673d1",
+  "chat_fragment": "# ==================================================\n# 注意力残差之后的 LayerNorm\n# ==================================================\n\ngamma_attn = cp.ones(d_model, dtype=cp.float32)\nbeta_attn = cp.zeros(d_model, dtype=cp.float32)\nln_eps = cp.float32(1e-5)\n\n# 每一行的 32 个特征分别计算均值和方差\nmean_attn = cp.mean(attention_residual, axis=-1, keepdims=True)\ncentered_attn = attention_residual - mean_attn\nvar_attn = cp.mean(centered_attn ** 2, axis=-1, keepdims=True)\n\n# epsilon 放在开平方内部，避免零方差导致除零\ninv_std_attn = cp.float32(1.0) / cp.sqrt(var_attn + ln_eps)\nnormalized_attn = centered_attn * inv_std_attn\n\n# 可训练的逐特征缩放和偏移\nattention_norm = normalized_attn * gamma_attn + beta_attn\n\nprint(\"gamma_attn:\", gamma_attn.shape)\nprint(\"beta_attn:\", beta_attn.shape)\nprint(\"mean_attn:\", mean_attn.shape)\nprint(\"var_attn:\", var_attn.shape)\nprint(\"attention_norm:\", attention_norm.shape)\nprint(\"第 0 行输出的均值:\", float(cp.mean(attention_norm[0])))\nprint(\"第 0 行输出的方差:\", float(cp.var(attention_norm[0])))\nprint(\"attention_norm 的实际设备:\", attention_norm.device)\n",
+  "chat_fragment_sha256": "eb4557f57ba77b6804edc659b00e96deaae2d1491b2627e48271e2df886161f9",
+  "shapes": {
+    "attention_residual": [
+      28,
+      32
+    ],
+    "gamma_attn": [
+      32
+    ],
+    "beta_attn": [
+      32
+    ],
+    "mean_attn": [
+      28,
+      1
+    ],
+    "var_attn": [
+      28,
+      1
+    ],
+    "attention_norm": [
+      28,
+      32
+    ]
+  },
+  "config": {
+    "normalization_axis": -1,
+    "variance_ddof": 0,
+    "epsilon_float32_value": 9.999999747378752e-06,
+    "gamma_init": 1,
+    "beta_init": 0
+  },
+  "dtype": "float32",
+  "attention_norm_device": "<CUDA Device 0>",
+  "all_finite": true,
+  "cpu_float64_reference_match": true,
+  "reference_rtol": 1e-05,
+  "reference_atol": 2e-06,
+  "reference_max_abs_error": 3.318116181816322e-07,
+  "row_mean_max_abs": 6.624031811952591e-08,
+  "row_variance_matches_v_over_v_plus_eps": true,
+  "first_row_output_mean_float32": -3.725290298461914e-08,
+  "first_row_output_var_float32": 0.9999621510505676,
+  "nontrivial_gamma_beta_reference_match": true,
+  "nontrivial_gamma_beta_max_abs_error": 3.7769903560302964e-07,
+  "constant_row_zero_variance_outputs_beta_exact": true,
+  "input_unchanged": true,
+  "new_trainable_parameter_count": 64,
+  "current_trainable_parameter_count": 5216,
+  "gradient_computation_executed": false,
+  "parameter_updates": 0,
+  "transformer_training_executed": false,
+  "preparation_stdout": "Python: 3.13.15\nNumPy: 2.5.3\nCuPy: 14.2.0\nGPU 数量: 1\nGPU 型号: NVIDIA GeForce RTX 5060\nx_train: (5000, 28, 28)\ny_train: (5000,)\nx_test: (1000, 28, 28)\ny_test: (1000,)\n一张图片: (28, 28)\n一行像素: (28,)\n像素范围: 0.0 1.0\n第一张图片的标签: 5\n训练输入的实际设备: <CUDA Device 0>\n测试输入的实际设备: <CUDA Device 0>\nW_in: (28, 32)\nb_in: (32,)\nX: (28, 28)\nembedding: (28, 32)\n一行映射后的特征: (32,)\nW_in 的实际设备: <CUDA Device 0>\nembedding 的实际设备: <CUDA Device 0>\nposition_encoding: (28, 32)\nencoder_input: (28, 32)\n第 0 行位置编码的前 6 个值: [0. 1. 0. 1. 0. 1.]\n第 1 行位置编码的前 6 个值: [0.841471   0.5403023  0.53316844 0.84600914 0.3109836  0.95041525]\nencoder_input 的实际设备: <CUDA Device 0>\nW_Q: (32, 32)\nW_K: (32, 32)\nW_V: (32, 32)\nQ: (28, 32)\nK: (28, 32)\nV: (28, 32)\nQ 的实际设备: <CUDA Device 0>\nK 的实际设备: <CUDA Device 0>\nV 的实际设备: <CUDA Device 0>\n每个头的特征数: 8\nQ_heads: (4, 28, 8)\nK_heads: (4, 28, 8)\nV_heads: (4, 28, 8)\n第 0 个头的 Q: (28, 8)\nQ_heads 的实际设备: <CUDA Device 0>\nK_transposed: (4, 8, 28)\nattention_scores: (4, 28, 28)\n第 0 个头的分数矩阵: (28, 28)\nattention_scores 的实际设备: <CUDA Device 0>\nattention_weights: (4, 28, 28)\n每行权重和的形状: (4, 28)\n第 0 个头前 5 行的权重和: [1. 1. 1. 1. 1.]\nattention_weights 的实际设备: <CUDA Device 0>\nhead_output: (4, 28, 8)\n第 0 个头的输出: (28, 8)\nhead_output 的实际设备: <CUDA Device 0>\nhead_output_by_position: (28, 4, 8)\nconcatenated_heads: (28, 32)\n一行拼接后的特征: (32,)\nconcatenated_heads 的实际设备: <CUDA Device 0>\nW_O: (32, 32)\nb_O: (32,)\nattention_output: (28, 32)\nW_O 的实际设备: <CUDA Device 0>\nattention_output 的实际设备: <CUDA Device 0>\nattention_residual: (28, 32)\n一行残差相加后的特征: (32,)\nattention_residual 的实际设备: <CUDA Device 0>\n",
+  "step_stdout": "gamma_attn: (32,)\nbeta_attn: (32,)\nmean_attn: (28, 1)\nvar_attn: (28, 1)\nattention_norm: (28, 32)\n第 0 行输出的均值: -3.725290298461914e-08\n第 0 行输出的方差: 0.9999621510505676\nattention_norm 的实际设备: <CUDA Device 0>\n"
+}

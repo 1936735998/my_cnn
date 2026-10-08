@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-07",
+  "timezone": "Asia/Shanghai",
+  "version": "v011",
+  "recorded_at": "2026-10-07T09:22:42.970262+08:00",
+  "scope": "注意力残差局部前向GPU验证；未LayerNorm、求梯度或训练",
+  "python": "3.13.15",
+  "executable": "F:\\PythonProjects\\deep_learning\\.venv\\Scripts\\python.exe",
+  "numpy": "2.5.3",
+  "cupy": "14.2.0",
+  "gpu_name": "NVIDIA GeForce RTX 5060",
+  "selected_device": 0,
+  "cupy_visible_gpu_count": 1,
+  "user_source_path": "F:\\PythonProjects\\deep_learning\\transformer_mnist.py",
+  "user_source_sha256": "77780b389255da5718c08a75085f61e27b4832d8d6710402b066177fd6a204f9",
+  "user_source_unchanged": true,
+  "data_path": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "data_sha256": "731c5ac602752760c8e48fbffcf8c3b850d9dc2a2aedcf2cc48468fc17b673d1",
+  "chat_fragment": "# ==================================================\n# 注意力子层的残差连接\n# ==================================================\n\n# (28, 32) + (28, 32) → (28, 32)\nattention_residual = encoder_input + attention_output\n\nprint(\"attention_residual:\", attention_residual.shape)\nprint(\"一行残差相加后的特征:\", attention_residual[0].shape)\nprint(\"attention_residual 的实际设备:\", attention_residual.device)\n",
+  "chat_fragment_sha256": "6f2aa8572f09becd28ddd647edf04c741556a49e561b734ed6f613f951e52a3a",
+  "shapes": {
+    "encoder_input": [
+      28,
+      32
+    ],
+    "attention_output": [
+      28,
+      32
+    ],
+    "attention_residual": [
+      28,
+      32
+    ]
+  },
+  "dtype": "float32",
+  "attention_residual_device": "<CUDA Device 0>",
+  "all_finite": true,
+  "cpu_float32_elementwise_reference_exact_match": true,
+  "reference_max_abs_error": 0.0,
+  "both_inputs_unchanged": true,
+  "new_trainable_parameter_count": 0,
+  "layer_norm_executed": false,
+  "gradient_computation_executed": false,
+  "parameter_updates": 0,
+  "transformer_training_executed": false,
+  "preparation_stdout": "Python: 3.13.15\nNumPy: 2.5.3\nCuPy: 14.2.0\nGPU 数量: 1\nGPU 型号: NVIDIA GeForce RTX 5060\nx_train: (5000, 28, 28)\ny_train: (5000,)\nx_test: (1000, 28, 28)\ny_test: (1000,)\n一张图片: (28, 28)\n一行像素: (28,)\n像素范围: 0.0 1.0\n第一张图片的标签: 5\n训练输入的实际设备: <CUDA Device 0>\n测试输入的实际设备: <CUDA Device 0>\nW_in: (28, 32)\nb_in: (32,)\nX: (28, 28)\nembedding: (28, 32)\n一行映射后的特征: (32,)\nW_in 的实际设备: <CUDA Device 0>\nembedding 的实际设备: <CUDA Device 0>\nposition_encoding: (28, 32)\nencoder_input: (28, 32)\n第 0 行位置编码的前 6 个值: [0. 1. 0. 1. 0. 1.]\n第 1 行位置编码的前 6 个值: [0.841471   0.5403023  0.53316844 0.84600914 0.3109836  0.95041525]\nencoder_input 的实际设备: <CUDA Device 0>\nW_Q: (32, 32)\nW_K: (32, 32)\nW_V: (32, 32)\nQ: (28, 32)\nK: (28, 32)\nV: (28, 32)\nQ 的实际设备: <CUDA Device 0>\nK 的实际设备: <CUDA Device 0>\nV 的实际设备: <CUDA Device 0>\n每个头的特征数: 8\nQ_heads: (4, 28, 8)\nK_heads: (4, 28, 8)\nV_heads: (4, 28, 8)\n第 0 个头的 Q: (28, 8)\nQ_heads 的实际设备: <CUDA Device 0>\nK_transposed: (4, 8, 28)\nattention_scores: (4, 28, 28)\n第 0 个头的分数矩阵: (28, 28)\nattention_scores 的实际设备: <CUDA Device 0>\nattention_weights: (4, 28, 28)\n每行权重和的形状: (4, 28)\n第 0 个头前 5 行的权重和: [1. 1. 1. 1. 1.]\nattention_weights 的实际设备: <CUDA Device 0>\nhead_output: (4, 28, 8)\n第 0 个头的输出: (28, 8)\nhead_output 的实际设备: <CUDA Device 0>\nhead_output_by_position: (28, 4, 8)\nconcatenated_heads: (28, 32)\n一行拼接后的特征: (32,)\nconcatenated_heads 的实际设备: <CUDA Device 0>\nW_O: (32, 32)\nb_O: (32,)\nattention_output: (28, 32)\nW_O 的实际设备: <CUDA Device 0>\nattention_output 的实际设备: <CUDA Device 0>\n",
+  "step_stdout": "attention_residual: (28, 32)\n一行残差相加后的特征: (32,)\nattention_residual 的实际设备: <CUDA Device 0>\n"
+}

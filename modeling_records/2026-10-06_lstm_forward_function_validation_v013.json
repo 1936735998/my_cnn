@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-06",
+  "version": "v013",
+  "stage": "forward_function_refactor_and_updated_parameter_cache",
+  "source_path": "F:\\PythonProjects\\deep_learning\\lstm_from_scratch.py",
+  "source_sha256": "c2c6867616b85c69d0f8ec53ee9efaaee5f4b7ce3f33972b52cfe5f9ef43f5dc",
+  "dataset_source": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "validation_sample_indices": [
+    0,
+    1,
+    0
+  ],
+  "sample_labels": [
+    5,
+    0,
+    5
+  ],
+  "output_shape": [
+    10
+  ],
+  "cache_length": 28,
+  "loss_check": 0.0881374096811086,
+  "prior_loss_after": 0.0881374096811086,
+  "matches_previous_updated_forward_exactly": true,
+  "repeat_first_image_output_matches_exactly": true,
+  "each_call_zero_initial_state_checks_passed": true,
+  "all_output_cache_shapes_and_finite_checks_passed": true,
+  "cache_instances_and_array_storage_independent": true,
+  "old_global_h_cache_and_parameters_unchanged": true,
+  "fresh_cache_matches_current_updated_parameters": true,
+  "prior_single_sgd_step_replayed_for_validation_setup": true,
+  "additional_optimizer_updates": 0,
+  "full_dataset_training_completed": false,
+  "test_set_evaluated": false,
+  "lesson_stdout": "函数输出形状: (10,)\n函数缓存步数: 28\n函数计算的 loss: 0.0881374096811086\n",
+  "python": "3.13.15",
+  "numpy": "2.5.3",
+  "actual_device": "CPU",
+  "dtype": "float64",
+  "cpu_identifier": "AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",
+  "execution": "isolated snippets via project interpreter; local cache first two training images",
+  "user_python_file_modified_by_assistant": false
+}

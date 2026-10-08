@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-07",
+  "timezone": "Asia/Shanghai",
+  "version": "v018",
+  "recorded_at": "2026-10-07T10:39:12.928652+08:00",
+  "scope": "图片32维表示到10类原始分数的GPU前向验证；未分类softmax、损失或训练",
+  "python": "3.13.15",
+  "executable": "F:\\PythonProjects\\deep_learning\\.venv\\Scripts\\python.exe",
+  "numpy": "2.5.3",
+  "cupy": "14.2.0",
+  "gpu_name": "NVIDIA GeForce RTX 5060",
+  "selected_device": 0,
+  "cupy_visible_gpu_count": 1,
+  "user_source_path": "F:\\PythonProjects\\deep_learning\\transformer_mnist.py",
+  "user_source_sha256": "888be083fad798397d3fd3e0976458f32dbdb11bb291f3721dcbd62e4e5e42f8",
+  "user_source_unchanged": true,
+  "data_path": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "data_sha256": "731c5ac602752760c8e48fbffcf8c3b850d9dc2a2aedcf2cc48468fc17b673d1",
+  "chat_fragment": "# ==================================================\n# 分类头：32 个图片特征 → 10 个分类分数\n# ==================================================\n\nnum_classes = 10\n\nW_cls = cp.random.randn(d_model, num_classes).astype(cp.float32) * 0.1\nb_cls = cp.zeros(num_classes, dtype=cp.float32)\n\n# (32,) @ (32, 10) + (10,) → (10,)\nlogits = cp.dot(image_features, W_cls) + b_cls\n\nprint(\"W_cls:\", W_cls.shape)\nprint(\"b_cls:\", b_cls.shape)\nprint(\"logits:\", logits.shape)\nprint(\"logits 的实际设备:\", logits.device)\n",
+  "chat_fragment_sha256": "b46a502ada0c1d6d2b6f1ce152ca31158f13dbe204175b99fefb923f8a4120f5",
+  "config": {
+    "d_model": 32,
+    "num_classes": 10,
+    "class_labels": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "reseed_in_fragment": false
+  },
+  "shapes": {
+    "image_features": [
+      32
+    ],
+    "W_cls": [
+      32,
+      10
+    ],
+    "b_cls": [
+      10
+    ],
+    "logits": [
+      10
+    ]
+  },
+  "dtype": "float32",
+  "logits_device": "<CUDA Device 0>",
+  "all_finite": true,
+  "cpu_float64_featurewise_sum_reference_match": true,
+  "reference_rtol": 1e-05,
+  "reference_atol": 1e-06,
+  "reference_max_abs_error": 5.80994884424868e-08,
+  "logits_values": [
+    -0.5928018093109131,
+    -0.0274847149848938,
+    0.03307698667049408,
+    -0.10732286423444748,
+    0.26567375659942627,
+    0.40609902143478394,
+    0.44944489002227783,
+    -0.4148232638835907,
+    0.17005044221878052,
+    0.09730863571166992
+  ],
+  "input_unchanged": true,
+  "new_trainable_parameter_count": 330,
+  "current_trainable_parameter_count": 9802,
+  "classifier_softmax_executed": false,
+  "loss_computation_executed": false,
+  "gradient_computation_executed": false,
+  "parameter_updates": 0,
+  "transformer_training_executed": false,
+  "preparation_stdout": "Python: 3.13.15\nNumPy: 2.5.3\nCuPy: 14.2.0\nGPU 数量: 1\nGPU 型号: NVIDIA GeForce RTX 5060\nx_train: (5000, 28, 28)\ny_train: (5000,)\nx_test: (1000, 28, 28)\ny_test: (1000,)\n一张图片: (28, 28)\n一行像素: (28,)\n像素范围: 0.0 1.0\n第一张图片的标签: 5\n训练输入的实际设备: <CUDA Device 0>\n测试输入的实际设备: <CUDA Device 0>\nW_in: (28, 32)\nb_in: (32,)\nX: (28, 28)\nembedding: (28, 32)\n一行映射后的特征: (32,)\nW_in 的实际设备: <CUDA Device 0>\nembedding 的实际设备: <CUDA Device 0>\nposition_encoding: (28, 32)\nencoder_input: (28, 32)\n第 0 行位置编码的前 6 个值: [0. 1. 0. 1. 0. 1.]\n第 1 行位置编码的前 6 个值: [0.841471   0.5403023  0.53316844 0.84600914 0.3109836  0.95041525]\nencoder_input 的实际设备: <CUDA Device 0>\nW_Q: (32, 32)\nW_K: (32, 32)\nW_V: (32, 32)\nQ: (28, 32)\nK: (28, 32)\nV: (28, 32)\nQ 的实际设备: <CUDA Device 0>\nK 的实际设备: <CUDA Device 0>\nV 的实际设备: <CUDA Device 0>\n每个头的特征数: 8\nQ_heads: (4, 28, 8)\nK_heads: (4, 28, 8)\nV_heads: (4, 28, 8)\n第 0 个头的 Q: (28, 8)\nQ_heads 的实际设备: <CUDA Device 0>\nK_transposed: (4, 8, 28)\nattention_scores: (4, 28, 28)\n第 0 个头的分数矩阵: (28, 28)\nattention_scores 的实际设备: <CUDA Device 0>\nattention_weights: (4, 28, 28)\n每行权重和的形状: (4, 28)\n第 0 个头前 5 行的权重和: [1. 1. 1. 1. 1.]\nattention_weights 的实际设备: <CUDA Device 0>\nhead_output: (4, 28, 8)\n第 0 个头的输出: (28, 8)\nhead_output 的实际设备: <CUDA Device 0>\nhead_output_by_position: (28, 4, 8)\nconcatenated_heads: (28, 32)\n一行拼接后的特征: (32,)\nconcatenated_heads 的实际设备: <CUDA Device 0>\nW_O: (32, 32)\nb_O: (32,)\nattention_output: (28, 32)\nW_O 的实际设备: <CUDA Device 0>\nattention_output 的实际设备: <CUDA Device 0>\nattention_residual: (28, 32)\n一行残差相加后的特征: (32,)\nattention_residual 的实际设备: <CUDA Device 0>\ngamma_attn: (32,)\nbeta_attn: (32,)\nmean_attn: (28, 1)\nvar_attn: (28, 1)\nattention_norm: (28, 32)\n第 0 行输出的均值: -3.725290298461914e-08\n第 0 行输出的方差: 0.9999621510505676\nattention_norm 的实际设备: <CUDA Device 0>\nW_ff1: (32, 64)\nb_ff1: (64,)\nff_hidden_linear: (28, 64)\nff_hidden: (28, 64)\nff_hidden 的实际设备: <CUDA Device 0>\nW_ff2: (64, 32)\nb_ff2: (32,)\nff_output: (28, 32)\nff_output 的实际设备: <CUDA Device 0>\nff_residual: (28, 32)\n一行残差相加后的特征: (32,)\nff_residual 的实际设备: <CUDA Device 0>\ngamma_ffn: (32,)\nbeta_ffn: (32,)\nmean_ffn: (28, 1)\nvar_ffn: (28, 1)\nencoder_output: (28, 32)\n第 0 行输出的均值: 1.4901161193847656e-08\n第 0 行输出的方差: 0.9999919533729553\nencoder_output 的实际设备: <CUDA Device 0>\nencoder_output: (28, 32)\nimage_features: (32,)\nimage_features 的实际设备: <CUDA Device 0>\n",
+  "step_stdout": "W_cls: (32, 10)\nb_cls: (10,)\nlogits: (10,)\nlogits 的实际设备: <CUDA Device 0>\n"
+}

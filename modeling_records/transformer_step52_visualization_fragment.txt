@@ -1,0 +1,25 @@
+import matplotlib.pyplot as plt
+
+
+# 仅为绘图，将当前这一张图片从 GPU 复制到 CPU。
+image_to_show = cp.asnumpy(x_test[inference_sample_index])
+true_digit = int(test_labels[inference_sample_index])
+predicted_probability = float(inference_probabilities[inference_prediction])
+
+fig, ax = plt.subplots(figsize=(4, 4))
+ax.imshow(
+    image_to_show, cmap="gray", vmin=0.0, vmax=1.0,
+    interpolation="nearest"
+)
+ax.set_title(
+    f"True: {true_digit} | Pred: {inference_prediction}\n"
+    f"Predicted class probability: {predicted_probability:.2%}"
+)
+ax.axis("off")
+fig.tight_layout()
+plt.show()
+
+print("真实数字:", true_digit)
+print("预测数字:", inference_prediction)
+print("是否预测正确:", inference_prediction == true_digit)
+print("显示图片的形状:", image_to_show.shape)

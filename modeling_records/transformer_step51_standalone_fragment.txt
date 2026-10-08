@@ -1,0 +1,27 @@
+def predict_one_image(X, params, position_encoding, num_heads, ln_eps):
+    # 复用新文件中的手写前向，不需要真实标签。
+    _, probabilities = infer_one_image(
+        X, params, position_encoding, num_heads, ln_eps
+    )
+
+    # 概率最大的下标，就是预测的数字。
+    prediction = int(cp.argmax(probabilities))
+    return prediction, probabilities
+
+
+# x_test 已经归一化，这里直接使用，不再除以 255。
+inference_sample_index = 0
+inference_prediction, inference_probabilities = predict_one_image(
+    x_test[inference_sample_index], params,
+    position_encoding, num_heads, ln_eps
+)
+
+print("预测图片索引:", inference_sample_index)
+print("预测数字:", inference_prediction)
+print("概率数组对应的数字:", list(range(10)))
+print("10 个分类概率:", inference_probabilities)
+print("预测类别的概率:", float(inference_probabilities[inference_prediction]))
+print("概率之和:", float(cp.sum(inference_probabilities)))
+print("概率数组的形状:", inference_probabilities.shape)
+print("概率数组的实际设备:", inference_probabilities.device)
+print("概率数组的数据类型:", inference_probabilities.dtype)

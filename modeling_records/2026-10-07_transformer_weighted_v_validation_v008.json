@@ -1,0 +1,73 @@
+{
+  "date": "2026-10-07",
+  "timezone": "Asia/Shanghai",
+  "version": "v008",
+  "recorded_at": "2026-10-07T08:57:10.468437+08:00",
+  "scope": "注意力权重加权V的局部前向GPU验证；未合并头、求梯度或训练",
+  "python": "3.13.15",
+  "executable": "F:\\PythonProjects\\deep_learning\\.venv\\Scripts\\python.exe",
+  "numpy": "2.5.3",
+  "cupy": "14.2.0",
+  "gpu_name": "NVIDIA GeForce RTX 5060",
+  "selected_device": 0,
+  "cupy_visible_gpu_count": 1,
+  "user_source_path": "F:\\PythonProjects\\deep_learning\\transformer_mnist.py",
+  "user_source_sha256": "85d4bd8c4dd08d0a26acb35a27cea3482198827e74beb936f5c5cc1f137802e2",
+  "user_source_unchanged": true,
+  "data_path": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "data_sha256": "731c5ac602752760c8e48fbffcf8c3b850d9dc2a2aedcf2cc48468fc17b673d1",
+  "chat_fragment": "# ==================================================\n# 用注意力权重对 V 加权求和\n# ==================================================\n\n# (4, 28, 28) @ (4, 28, 8) → (4, 28, 8)\nhead_output = cp.matmul(attention_weights, V_heads)\n\nprint(\"head_output:\", head_output.shape)\nprint(\"第 0 个头的输出:\", head_output[0].shape)\nprint(\"head_output 的实际设备:\", head_output.device)\n",
+  "chat_fragment_sha256": "e1373b83c820bed685f94e4209eabf400dea39c847e104cb15c33bec0708aaf6",
+  "config": {
+    "seq_len": 28,
+    "d_model": 32,
+    "num_heads": 4,
+    "head_dim": 8
+  },
+  "shapes": {
+    "attention_weights": [
+      4,
+      28,
+      28
+    ],
+    "V_heads": [
+      4,
+      28,
+      8
+    ],
+    "head_output": [
+      4,
+      28,
+      8
+    ]
+  },
+  "head_output_device": "<CUDA Device 0>",
+  "head_output_dtype": "float32",
+  "output_all_finite": true,
+  "input_weights_and_V_unchanged": true,
+  "input_weights_nonnegative": true,
+  "input_row_sum_atol": 1e-06,
+  "cpu_float64_einsum_reference_match": true,
+  "cpu_reference_max_abs_error": 1.5024719135503517e-07,
+  "cpu_reference_rtol": 1e-05,
+  "cpu_reference_atol": 1e-06,
+  "explicit_query_h0_i3_sum_match": true,
+  "query_h0_i3_output": [
+    0.013922271318733692,
+    0.7234805226325989,
+    -0.12997932732105255,
+    0.10702580958604813,
+    -0.11248745769262314,
+    -0.22235248982906342,
+    -0.5007485747337341,
+    0.11885054409503937
+  ],
+  "within_per_head_per_feature_V_range_with_tolerance": true,
+  "new_trainable_parameter_count": 0,
+  "head_merge_executed": false,
+  "gradient_computation_executed": false,
+  "parameter_updates": 0,
+  "transformer_training_executed": false,
+  "preparation_stdout": "Python: 3.13.15\nNumPy: 2.5.3\nCuPy: 14.2.0\nGPU 数量: 1\nGPU 型号: NVIDIA GeForce RTX 5060\nx_train: (5000, 28, 28)\ny_train: (5000,)\nx_test: (1000, 28, 28)\ny_test: (1000,)\n一张图片: (28, 28)\n一行像素: (28,)\n像素范围: 0.0 1.0\n第一张图片的标签: 5\n训练输入的实际设备: <CUDA Device 0>\n测试输入的实际设备: <CUDA Device 0>\nW_in: (28, 32)\nb_in: (32,)\nX: (28, 28)\nembedding: (28, 32)\n一行映射后的特征: (32,)\nW_in 的实际设备: <CUDA Device 0>\nembedding 的实际设备: <CUDA Device 0>\nposition_encoding: (28, 32)\nencoder_input: (28, 32)\n第 0 行位置编码的前 6 个值: [0. 1. 0. 1. 0. 1.]\n第 1 行位置编码的前 6 个值: [0.841471   0.5403023  0.53316844 0.84600914 0.3109836  0.95041525]\nencoder_input 的实际设备: <CUDA Device 0>\nW_Q: (32, 32)\nW_K: (32, 32)\nW_V: (32, 32)\nQ: (28, 32)\nK: (28, 32)\nV: (28, 32)\nQ 的实际设备: <CUDA Device 0>\nK 的实际设备: <CUDA Device 0>\nV 的实际设备: <CUDA Device 0>\n每个头的特征数: 8\nQ_heads: (4, 28, 8)\nK_heads: (4, 28, 8)\nV_heads: (4, 28, 8)\n第 0 个头的 Q: (28, 8)\nQ_heads 的实际设备: <CUDA Device 0>\nK_transposed: (4, 8, 28)\nattention_scores: (4, 28, 28)\n第 0 个头的分数矩阵: (28, 28)\nattention_scores 的实际设备: <CUDA Device 0>\nattention_weights: (4, 28, 28)\n每行权重和的形状: (4, 28)\n第 0 个头前 5 行的权重和: [1. 1. 1. 1. 1.]\nattention_weights 的实际设备: <CUDA Device 0>\n",
+  "step_stdout": "head_output: (4, 28, 8)\n第 0 个头的输出: (28, 8)\nhead_output 的实际设备: <CUDA Device 0>\n"
+}

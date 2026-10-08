@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-06",
+  "version": "v015",
+  "stage": "single_image_training_function_validation",
+  "source_path": "F:\\PythonProjects\\deep_learning\\lstm_from_scratch.py",
+  "source_sha256": "4428a836265dad4c1d1756ec2618eb3dcb2ff0fa8907ef98c49cef9394a850ca",
+  "python": "3.13.15",
+  "numpy": "2.5.3",
+  "actual_device": "CPU",
+  "dtype": "float64",
+  "cpu_identifier": "AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",
+  "gpu_enumeration": "NumPy lacks this interface; no GPU investigation",
+  "dataset_cache": "C:\\Users\\19367\\.keras\\datasets\\mnist.npz",
+  "sample_index": 0,
+  "label": 5,
+  "sequence_shape": [
+    28,
+    28
+  ],
+  "learning_rate": 0.01,
+  "loss_before": 0.0881374096811086,
+  "loss_after": 0.08695209627476536,
+  "loss_decrease": 0.0011853134063432441,
+  "returned_loss_is_before_update": true,
+  "function_call_order": [
+    "forward",
+    "backward"
+  ],
+  "all_parameters_unchanged_until_backward_completes": true,
+  "ten_parameter_update_formula_max_errors": {
+    "W_f": 0,
+    "b_f": 0,
+    "W_i": 0,
+    "b_i": 0,
+    "W_g": 0,
+    "b_g": 0,
+    "W_o": 0,
+    "b_o": 0,
+    "W_y": 0,
+    "b_y": 0
+  },
+  "all_updated_parameters_finite": true,
+  "fresh_post_update_cache_steps": 28,
+  "fresh_post_update_initial_states_zero": true,
+  "setup_replayed_prior_sgd_updates": 1,
+  "new_updates_per_function_call": 1,
+  "total_updates_in_a_normal_full_script_run": 2,
+  "validation_runs": [
+    {
+      "purpose": "instrumented call order and global parameter update check",
+      "new_updates": 1
+    },
+    {
+      "purpose": "exact teaching snippet after resetting isolated weights to the same starting point",
+      "new_updates": 1
+    }
+  ],
+  "full_dataset_training": false,
+  "test_set_evaluation": false,
+  "main_source_modified": false,
+  "limitations": [
+    "One training image only; does not establish classification accuracy or generalization",
+    "Read global weights; old outputs and caches become stale after the update"
+  ]
+}
